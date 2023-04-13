@@ -1,13 +1,13 @@
 import { ElementStates } from "../../types/element-states";
 
-// РАНДОМАЙЗЕР
+// !РАНДОМАЙЗЕР вынести в общие
 function getRandomInteger(min: number, max: number) {
   const r = Math.random() * (max - min) + min;
   return Math.floor(r);
 }
-export function getRandomArray() {
+export function getRandomArray(min: number, max: number) {
   let arr = [];
-  for (let i = 0; i <= getRandomInteger(3, 18); i++)
+  for (let i = 0; i <= getRandomInteger(min, max); i++)
     arr.push({
       value: Math.floor(Math.random() * 100),
       color: ElementStates.Default,

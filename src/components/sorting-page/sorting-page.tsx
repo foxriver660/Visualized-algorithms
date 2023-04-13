@@ -66,7 +66,7 @@ export const SortingPage: React.FC = () => {
           extraClass="mr-40"
         />
         <Button
-          onClick={(e) => setArr(getRandomArray())}
+          onClick={(e) => setArr(getRandomArray(3, 18))}
           text="Новый массив"
           disabled={loaderDecrease || loaderIncrease}
           linkedList="big"

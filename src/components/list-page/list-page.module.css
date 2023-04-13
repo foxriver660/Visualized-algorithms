@@ -1,0 +1,34 @@
+.wrapper {
+  display: flex;
+  max-width: 952px;
+  width: 100%;
+  margin: 0 auto;
+  gap: 12px;
+  padding-bottom: 12px;
+}
+.btn {
+  max-width: 175px;
+  width: 100%;
+}
+.wrapperIndex {
+  display: flex;
+  max-width: 952px;
+  width: 100%;
+  margin: 0 auto;
+  gap: 12px;
+  padding-bottom: 120px;
+}
+.btnIndex {
+  max-width: 362px;
+  width: 100%;
+}
+.listWrapper {
+  max-width: 980px;
+  width: 100%;
+  margin: 0 auto;
+  
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 10px;
+}
