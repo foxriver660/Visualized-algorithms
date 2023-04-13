@@ -7,17 +7,17 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import style from "./stack-page.module.css";
 
 export const StackPage: React.FC = () => {
-  const [numberInput, setNumberInput] = useState<any>("");
+  const [inputValue, setInputValue] = useState<any>("");
   const [stack, setStack] = useState<any>([]);
   const [loaderAdd, setLoaderAdd] = useState(false);
   const [loaderDelete, setLoaderDelete] = useState(false);
-  const handleChange = (e: any) => setNumberInput(e.target.value);
+  const handleChange = (e: any) => setInputValue(e.target.value);
 
-  const handleClickAdd = async (e: any) => {
-    if (numberInput) {
+  const handleClickPush = async (e: any) => {
+    if (inputValue) {
       setLoaderAdd(true);
-      stack.push({ value: numberInput, color: ElementStates.Changing });
-      setNumberInput("");
+      stack.push({ value: inputValue, color: ElementStates.Changing });
+      setInputValue("");
       await new Promise((resolve) => setTimeout(resolve, 500));
       stack[stack.length - 1].color = ElementStates.Default;
       setStack([...stack]);
@@ -25,10 +25,10 @@ export const StackPage: React.FC = () => {
     }
   };
 
-  const handleClickDelete = async (e: any) => {
+  const handleClickPop = async (e: any) => {
     setLoaderDelete(true);
     stack[stack.length - 1].color = ElementStates.Changing;
-    setStack([...stack]);
+    /* setStack([...stack]); */
     stack.pop();
     await new Promise((resolve) => setTimeout(resolve, 500));
     setStack([...stack]);
@@ -53,31 +53,31 @@ export const StackPage: React.FC = () => {
           type="text"
           isLimitText={true}
           maxLength={4}
-          value={`${numberInput}`}
+          value={`${inputValue}`}
           onChange={handleChange}
           extraClass="mr-6"
         />
 
         <Button
-          onClick={handleClickAdd}
+          onClick={handleClickPush}
           isLoader={loaderAdd}
           text="Добавить"
-          disabled={loaderDelete}
+          disabled={loaderDelete || !inputValue}
           linkedList="small"
           extraClass={`mr-6 ${style.addBtn}`}
         />
         <Button
-          onClick={handleClickDelete}
+          onClick={handleClickPop}
           isLoader={loaderDelete}
           text="Удалить"
-          disabled={loaderAdd}
+          disabled={loaderAdd || !stack.length}
           linkedList="small"
           extraClass={`mr-40 ${style.deleteBtn}`}
         />
         <Button
           onClick={handleClickClear}
           text="Очистить"
-          disabled={loaderDelete || loaderAdd}
+          disabled={loaderDelete || loaderAdd || !stack.length}
           linkedList="small"
           extraClass={style.clearBtn}
         />
