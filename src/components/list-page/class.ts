@@ -18,10 +18,15 @@ export class LinkedList<T> implements ILinkedList<T> {
   private head: Node<T> | null;
   private tail: Node<T> | null;
   private length: number;
-  constructor() {
+  private lastAddedNode: any;
+  constructor(values: any = []) {
     this.head = null;
     this.tail = null;
     this.length = 0;
+    this.lastAddedNode = null; 
+    for (let val of values) {
+      this.append(val);
+    }
   }
   prepend(value: any) {
     const newNode = new Node(value, this.head);
@@ -32,6 +37,7 @@ export class LinkedList<T> implements ILinkedList<T> {
       this.tail = newNode;
     }
     this.length++;
+    this.lastAddedNode = newNode;
     return this;
   }
   append(value: any) {
@@ -46,6 +52,7 @@ export class LinkedList<T> implements ILinkedList<T> {
     this.tail.next = newNode;
     this.tail = newNode;
     this.length++;
+    this.lastAddedNode = newNode;
     return this;
   }
   deleteTail() {
@@ -70,7 +77,7 @@ export class LinkedList<T> implements ILinkedList<T> {
     }
 
     this.tail = currentNode;
-
+    this.length--;
     return deletedTail;
   }
   deleteHead() {
@@ -84,7 +91,7 @@ export class LinkedList<T> implements ILinkedList<T> {
       this.head = null;
       this.tail = null;
     }
-
+    this.length--;
     return deletedHead;
   }
   fromArray(values: any) {
@@ -100,8 +107,12 @@ export class LinkedList<T> implements ILinkedList<T> {
     }
     return nodes;
   }
+  
   getLength() {
     return this.length;
+  }
+  getLastAddedNode(){
+    return this.lastAddedNode
   }
   isEmpty() {
     return this.length === 0;
