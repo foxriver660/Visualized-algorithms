@@ -65,7 +65,7 @@ export class LinkedList<T> implements ILinkedList<T> {
     if (this.head === this.tail) {
       this.head = null;
       this.tail = null;
-
+      this.length = 0;
       return deletedTail;
     }
     let currentNode: any = this.head;

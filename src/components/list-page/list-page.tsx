@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { ButtonName } from "../../types/buttons-name";
 import { ElementStates } from "../../types/element-states";
 import { getRandomArray } from "../sorting-page/utils";
 import { Button } from "../ui/button/button";
@@ -11,15 +12,20 @@ import style from "./list-page.module.css";
 export const ListPage: React.FC = () => {
   const [addNode, setAddNode] = useState(false);
   const [deleteNode, setDeleteNode] = useState(false);
-  const [deleteNodeValue, setDeleteNodeValue] = useState('')
+  const [deleteNodeValue, setDeleteNodeValue] = useState("");
   const [addIndex, setAddIndex] = useState<any>(null);
   const [inputValue, setInputValue] = useState<any>({ value: "", index: "" });
+  const [loader, setLoader] = useState(false);
+  const [btnName, setBtnName] = useState("");
   const [linkedList] = useState<any>(new LinkedList(getRandomArray(3, 3)));
   const [arr, setArr] = useState<any>(linkedList.toArray());
   const handleChange = (e: any) =>
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
 
+  // !ДОБАВИТЬ В HEAD
   const handleClickPrepend = async (e: any) => {
+    setLoader(true);
+    setBtnName(ButtonName.AddHead);
     setAddNode(true);
     setAddIndex(linkedList.getLength());
     setArr(linkedList.toArray());
@@ -37,8 +43,13 @@ export const ListPage: React.FC = () => {
       color: ElementStates.Default,
     };
     setArr(linkedList.toArray());
+    setLoader(false);
   };
+
+  // !ДОБАВИТЬ В TAIL
   const handleClickAppend = async (e: any) => {
+    setLoader(true);
+    setBtnName(ButtonName.AddTail);
     setAddNode(true);
     setAddIndex(1);
     await new Promise((resolve) => setTimeout(resolve, 500));
@@ -55,29 +66,43 @@ export const ListPage: React.FC = () => {
       color: ElementStates.Default,
     };
     setArr(linkedList.toArray());
+    setLoader(false);
   };
+  // !УДАЛИТЬ HEAD
   const handleClickDeleteHead = async (e: any) => {
+    setLoader(true);
+    setBtnName(ButtonName.DeleteHead);
     setDeleteNode(true);
-    setDeleteNodeValue(linkedList.findByIndex(0).value)
+    setDeleteNodeValue(linkedList.findByIndex(0).value);
     setAddIndex(linkedList.getLength());
     linkedList.findByIndex(0).value = "";
     await new Promise((resolve) => setTimeout(resolve, 1000));
     linkedList.deleteHead();
     setArr(linkedList.toArray());
     setDeleteNode(false);
+    setLoader(false);
   };
+  // !УДАЛИТЬ TAIL
   const handleClickDeleteTail = async (e: any) => {
+    setLoader(true);
+    setBtnName(ButtonName.DeleteTail);
     setDeleteNode(true);
-    setDeleteNodeValue(linkedList.findByIndex(linkedList.getLength() - 1).value)
+    setDeleteNodeValue(
+      linkedList.findByIndex(linkedList.getLength() - 1).value
+    );
     setAddIndex(1);
     linkedList.findByIndex(linkedList.getLength() - 1).value = "";
     await new Promise((resolve) => setTimeout(resolve, 1000));
     linkedList.deleteTail();
     setArr(linkedList.toArray());
     setDeleteNode(false);
+    setLoader(false);
   };
-  
+
+  // !ДОБАВИТЬ ПО ИНДЕКСУ
   const handleClickInsertByIndex = async (e: any) => {
+    setLoader(true);
+    setBtnName(ButtonName.AddByIndex);
     setAddNode(true);
     for (let i = 0; i <= inputValue.index; i++) {
       setAddIndex(linkedList.getLength() - i);
@@ -98,25 +123,27 @@ export const ListPage: React.FC = () => {
       .toArray()
       .forEach((item: any) => (item.value.color = ElementStates.Default));
     setArr(linkedList.toArray());
+    setInputValue({ value: "", index: "" })
+    setLoader(false);
   };
 
-  const handleClickDeleteByIndex = async(e: any) => {
-    ;
-    
+  // !УДАЛИТЬ ПО ИНДЕКСУ
+  const handleClickDeleteByIndex = async (e: any) => {
+    setLoader(true);
+    setBtnName(ButtonName.DeleteByIndex);
     for (let i = 0; i <= inputValue.index; i++) {
-      
       if (i < inputValue.index) {
         linkedList.findByIndex(i).color = ElementStates.Changing;
       }
       setArr(linkedList.toArray());
       await new Promise((resolve) => setTimeout(resolve, 1000));
     }
-    setDeleteNodeValue(linkedList.findByIndex(inputValue.index).value)
-    setDeleteNode(true)
-    setAddIndex(inputValue.index);
-        linkedList.findByIndex(inputValue.index).value = '';
+    setDeleteNodeValue(linkedList.findByIndex(inputValue.index).value);
+    setDeleteNode(true);
+    setAddIndex(linkedList.getLength() - inputValue.index);
+    linkedList.findByIndex(inputValue.index).value = "";
     setArr(linkedList.toArray());
-    
+
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setDeleteNode(false);
     linkedList.removeAt(inputValue.index);
@@ -125,9 +152,10 @@ export const ListPage: React.FC = () => {
       .toArray()
       .forEach((item: any) => (item.value.color = ElementStates.Default));
     setArr(linkedList.toArray());
+    setInputValue({ value: "", index: "" })
+    setLoader(false);
   };
 
-  console.log(linkedList.findByIndex(inputValue.index).value);
   return (
     <SolutionLayout title="Связный список">
       <div className={style.wrapper}>
@@ -142,33 +170,33 @@ export const ListPage: React.FC = () => {
 
         <Button
           onClick={handleClickPrepend}
-          /* isLoader={loaderEnqueue} */
+          isLoader={loader && btnName === ButtonName.AddHead}
           text="Добавить в head"
-          /* disabled={loaderDequeue || !inputValue || queue.isFullQueue()} */
+          disabled={!inputValue.value || loader}
           linkedList="big"
           extraClass={style.btn}
         />
         <Button
           onClick={handleClickAppend}
-          /* isLoader={loaderDequeue}  */
+          isLoader={loader && btnName === ButtonName.AddTail}
           text="Добавить в tail"
-          /*  disabled={loaderEnqueue || !!queue.isEmpty()} */
+          disabled={!inputValue.value || loader}
           linkedList="big"
           extraClass={style.btn}
         />
         <Button
           onClick={handleClickDeleteHead}
-          /* isLoader={loaderEnqueue}  */
+          isLoader={loader && btnName === ButtonName.DeleteHead}
           text="Удалить из head"
-          /*   disabled={loaderDequeue || !inputValue || queue.isFullQueue()} */
+          disabled={linkedList.isEmpty() || loader}
           linkedList="big"
           extraClass={style.btn}
         />
         <Button
           onClick={handleClickDeleteTail}
-          /* isLoader={loaderDequeue}  */
+          isLoader={loader && btnName === ButtonName.DeleteTail}
           text="Удалить из tail"
-          /*  disabled={loaderEnqueue || !!queue.isEmpty()} */
+          disabled={linkedList.isEmpty() || loader}
           linkedList="big"
           extraClass={style.btn}
         />
@@ -185,17 +213,17 @@ export const ListPage: React.FC = () => {
 
         <Button
           onClick={handleClickInsertByIndex}
-          /* isLoader={loaderEnqueue} */
+           isLoader={loader && btnName === ButtonName.AddByIndex} 
           text="Добавить по индексу"
-          /* disabled={loaderDequeue || !inputValue || queue.isFullQueue()} */
+          disabled={!inputValue.value || !inputValue.index || loader}
           linkedList="big"
           extraClass={style.btnIndex}
         />
         <Button
           onClick={handleClickDeleteByIndex}
-          /* isLoader={loaderDequeue}  */
+           isLoader={loader && btnName === ButtonName.DeleteByIndex}  
           text="Удалить по индексу"
-          /*  disabled={loaderEnqueue || !!queue.isEmpty()} */
+          disabled={linkedList.isEmpty() || loader}
           linkedList="big"
           extraClass={style.btnIndex}
         />
