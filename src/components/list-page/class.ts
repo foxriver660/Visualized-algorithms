@@ -1,11 +1,11 @@
 export class Node<T> {
   value: T;
   next: Node<T> | null;
-  constructor(value: T, next: Node<T> | null = null) {
+    constructor(value: T, next: Node<T> | null = null) {
     this.value = value;
     this.next = next;
   }
- }
+}
 
 interface ILinkedList<T> {
   append: (element: T) => void;
@@ -23,7 +23,7 @@ export class LinkedList<T> implements ILinkedList<T> {
     this.head = null;
     this.tail = null;
     this.length = 0;
-    this.lastAddedNode = null; 
+    this.lastAddedNode = null;
     for (let val of values) {
       this.append(val);
     }
@@ -42,7 +42,6 @@ export class LinkedList<T> implements ILinkedList<T> {
     return this;
   }
   append(value: any) {
-   
     const newNode = new Node(value);
     if (!this.head || !this.tail) {
       this.head = newNode;
@@ -121,11 +120,69 @@ export class LinkedList<T> implements ILinkedList<T> {
     }
     return current.value;
   }
+  insertAt(index: number, data: T): void {
+    if (index < 0 || index > this.length) {
+      throw new Error("Index out of bounds");
+    }
+
+    const newNode = new Node(data);
+
+    if (index === 0) {
+      newNode.next = this.head;
+      this.head = newNode;
+    } else if (index === this.length) {
+      this.tail!.next = newNode;
+      this.tail = newNode;
+    } else {
+      let prev: Node<T> | null = null;
+      let current = this.head;
+      for (let i = 0; i < index; i++) {
+        prev = current;
+        current = current!.next;
+      }
+      prev!.next = newNode;
+      newNode.next = current;
+    }
+
+    this.length++;
+  }
+
+  removeAt(index: number): T {
+    if (index < 0 || index >= this.length) {
+      throw new Error("Index out of bounds");
+    }
+
+    let deletedNode: Node<T> | null = null;
+
+    if (index === 0) {
+      deletedNode = this.head;
+      this.head = this.head!.next;
+      if (this.length === 1) {
+        this.tail = null;
+      }
+    } else {
+      let prev: Node<T> | null = null;
+      let current = this.head;
+      for (let i = 0; i < index; i++) {
+        prev = current;
+        current = current!.next;
+      }
+
+      deletedNode = current;
+      prev!.next = current!.next;
+      if (index === this.length - 1) {
+        this.tail = prev;
+      }
+    }
+
+    this.length--;
+    return deletedNode!.value;
+  }
   getLength() {
     return this.length;
   }
-  getLastAddedNode(){
-    return this.lastAddedNode
+  getLastAddedNode() {
+    return this.lastAddedNode;
   }
   isEmpty() {
     return this.length === 0;
