@@ -35,17 +35,19 @@ export class LinkedList<T> implements ILinkedList<T> {
 
     if (!this.tail) {
       this.tail = newNode;
+      this.length++;
     }
     this.length++;
     this.lastAddedNode = newNode;
     return this;
   }
   append(value: any) {
+   
     const newNode = new Node(value);
     if (!this.head || !this.tail) {
       this.head = newNode;
       this.tail = newNode;
-
+      this.length++;
       return this;
     }
 
@@ -107,7 +109,18 @@ export class LinkedList<T> implements ILinkedList<T> {
     }
     return nodes;
   }
-  
+  findByIndex(index: any) {
+    if (index < 0 || index >= this.length) {
+      return null;
+    }
+    let current: any = this.head;
+    let i = 0;
+    while (i < index) {
+      current = current.next;
+      i++;
+    }
+    return current.value;
+  }
   getLength() {
     return this.length;
   }
