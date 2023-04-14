@@ -9,12 +9,15 @@ import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { LinkedList } from "./class";
 import style from "./list-page.module.css";
+
+const emptyInput = { value: "", index: "" };
+
 export const ListPage: React.FC = () => {
   const [addNode, setAddNode] = useState(false);
   const [deleteNode, setDeleteNode] = useState(false);
   const [deleteNodeValue, setDeleteNodeValue] = useState("");
   const [addIndex, setAddIndex] = useState<any>(null);
-  const [inputValue, setInputValue] = useState<any>({ value: "", index: "" });
+  const [inputValue, setInputValue] = useState<any>(emptyInput);
   const [loader, setLoader] = useState(false);
   const [btnName, setBtnName] = useState("");
   const [linkedList] = useState<any>(new LinkedList(getRandomArray(3, 3)));
@@ -43,6 +46,7 @@ export const ListPage: React.FC = () => {
       color: ElementStates.Default,
     };
     setArr(linkedList.toArray());
+    setInputValue(emptyInput);
     setLoader(false);
   };
 
@@ -66,6 +70,7 @@ export const ListPage: React.FC = () => {
       color: ElementStates.Default,
     };
     setArr(linkedList.toArray());
+    setInputValue(emptyInput);
     setLoader(false);
   };
   // !УДАЛИТЬ HEAD
@@ -123,7 +128,7 @@ export const ListPage: React.FC = () => {
       .toArray()
       .forEach((item: any) => (item.value.color = ElementStates.Default));
     setArr(linkedList.toArray());
-    setInputValue({ value: "", index: "" })
+    setInputValue(emptyInput);
     setLoader(false);
   };
 
@@ -152,7 +157,7 @@ export const ListPage: React.FC = () => {
       .toArray()
       .forEach((item: any) => (item.value.color = ElementStates.Default));
     setArr(linkedList.toArray());
-    setInputValue({ value: "", index: "" })
+    setInputValue(emptyInput);
     setLoader(false);
   };
 
@@ -213,7 +218,7 @@ export const ListPage: React.FC = () => {
 
         <Button
           onClick={handleClickInsertByIndex}
-           isLoader={loader && btnName === ButtonName.AddByIndex} 
+          isLoader={loader && btnName === ButtonName.AddByIndex}
           text="Добавить по индексу"
           disabled={!inputValue.value || !inputValue.index || loader}
           linkedList="big"
@@ -221,7 +226,7 @@ export const ListPage: React.FC = () => {
         />
         <Button
           onClick={handleClickDeleteByIndex}
-           isLoader={loader && btnName === ButtonName.DeleteByIndex}  
+          isLoader={loader && btnName === ButtonName.DeleteByIndex}
           text="Удалить по индексу"
           disabled={linkedList.isEmpty() || loader}
           linkedList="big"
