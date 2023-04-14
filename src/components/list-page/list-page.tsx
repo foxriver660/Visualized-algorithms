@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 import { ButtonName } from "../../types/buttons-name";
 import { ElementStates } from "../../types/element-states";
+import { timeOut} from "../../utils/delay";
 import { getRandomArray } from "../sorting-page/utils";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
@@ -32,7 +34,7 @@ export const ListPage: React.FC = () => {
     setAddNode(true);
     setAddIndex(linkedList.getLength());
     setArr(linkedList.toArray());
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await timeOut(SHORT_DELAY_IN_MS);
     linkedList.prepend({
       value: inputValue.value,
       color: ElementStates.Modified,
@@ -40,7 +42,7 @@ export const ListPage: React.FC = () => {
 
     setAddNode(false);
     setArr(linkedList.toArray());
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await timeOut(SHORT_DELAY_IN_MS);
     linkedList.getLastAddedNode().value = {
       value: inputValue.value,
       color: ElementStates.Default,
@@ -56,7 +58,7 @@ export const ListPage: React.FC = () => {
     setBtnName(ButtonName.AddTail);
     setAddNode(true);
     setAddIndex(1);
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await timeOut(SHORT_DELAY_IN_MS);
     linkedList.append({
       value: inputValue.value,
       color: ElementStates.Modified,
@@ -64,7 +66,7 @@ export const ListPage: React.FC = () => {
 
     setAddNode(false);
     setArr(linkedList.toArray());
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await timeOut(SHORT_DELAY_IN_MS);
     linkedList.getLastAddedNode().value = {
       value: inputValue.value,
       color: ElementStates.Default,
@@ -81,7 +83,7 @@ export const ListPage: React.FC = () => {
     setDeleteNodeValue(linkedList.findByIndex(0).value);
     setAddIndex(linkedList.getLength());
     linkedList.findByIndex(0).value = "";
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await timeOut(SHORT_DELAY_IN_MS);
     linkedList.deleteHead();
     setArr(linkedList.toArray());
     setDeleteNode(false);
@@ -97,7 +99,7 @@ export const ListPage: React.FC = () => {
     );
     setAddIndex(1);
     linkedList.findByIndex(linkedList.getLength() - 1).value = "";
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await timeOut(SHORT_DELAY_IN_MS);
     linkedList.deleteTail();
     setArr(linkedList.toArray());
     setDeleteNode(false);
@@ -115,7 +117,7 @@ export const ListPage: React.FC = () => {
         linkedList.findByIndex(i).color = ElementStates.Changing;
       }
       setArr(linkedList.toArray());
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await timeOut(SHORT_DELAY_IN_MS);
     }
     setAddNode(false);
     linkedList.insertAt(inputValue.index, {
@@ -123,7 +125,7 @@ export const ListPage: React.FC = () => {
       color: ElementStates.Modified,
     });
     setArr(linkedList.toArray());
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await timeOut(SHORT_DELAY_IN_MS);
     linkedList
       .toArray()
       .forEach((item: any) => (item.value.color = ElementStates.Default));
@@ -141,7 +143,7 @@ export const ListPage: React.FC = () => {
         linkedList.findByIndex(i).color = ElementStates.Changing;
       }
       setArr(linkedList.toArray());
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await timeOut(SHORT_DELAY_IN_MS);
     }
     setDeleteNodeValue(linkedList.findByIndex(inputValue.index).value);
     setDeleteNode(true);
@@ -149,7 +151,7 @@ export const ListPage: React.FC = () => {
     linkedList.findByIndex(inputValue.index).value = "";
     setArr(linkedList.toArray());
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await timeOut(SHORT_DELAY_IN_MS);
     setDeleteNode(false);
     linkedList.removeAt(inputValue.index);
     setArr(linkedList.toArray());
