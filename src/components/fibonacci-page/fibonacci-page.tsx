@@ -9,7 +9,7 @@ import style from "./fibonacci-page.module.css";
 import { getFibonacciNumbers } from "./utils";
 
 export const FibonacciPage: React.FC = () => {
-  const [numberInput, setNumberInput] = useState<number>(0);
+  const [numberInput, setNumberInput] = useState<number | string>('');
   const [renderArr, setRenderArr] = useState<number[]>([]);
   const [loader, setLoader] = useState(false);
 
@@ -17,7 +17,7 @@ export const FibonacciPage: React.FC = () => {
     setNumberInput(Number(e.target.value));
 
   const handleClick = async () => {
-    const arr = getFibonacciNumbers(numberInput);
+    const arr = getFibonacciNumbers(numberInput as number);
     setLoader(true);
     for (let i = 0; i < arr.length; i++) {
       await timeOut(SHORT_DELAY_IN_MS);
@@ -33,14 +33,14 @@ export const FibonacciPage: React.FC = () => {
           isLimitText={true}
           max={19}
           onChange={handleChange}
+          value={numberInput}
         />
         <Button
           onClick={handleClick}
           isLoader={loader}
           text="Рассчитать"
-          disabled={numberInput <= 19 && numberInput >= 1 ? false : true}
+          disabled={numberInput! <= 19 && numberInput! >= 1 ? false : true}
           linkedList="small"
-          value={numberInput}
         />
       </div>
       <ul className={style.numbersWrapper}>

@@ -174,7 +174,7 @@ export const ListPage: React.FC = () => {
     setInputValue($EMPTY_INPUT);
     setLoader(false);
   };
-
+  console.log(linkedList);
   return (
     <SolutionLayout title="Связный список">
       <div className={style.wrapper}>
@@ -232,7 +232,12 @@ export const ListPage: React.FC = () => {
           onClick={handleClickInsertByIndex}
           isLoader={loader && btnName === ButtonName.AddByIndex}
           text="Добавить по индексу"
-          disabled={!inputValue.value || !inputValue.index || loader}
+          disabled={
+            !inputValue.value ||
+            !inputValue.index ||
+            loader ||
+            Number(inputValue.index) > linkedList.getLength() - 1
+          }
           linkedList="big"
           extraClass={style.btnIndex}
         />
@@ -240,7 +245,11 @@ export const ListPage: React.FC = () => {
           onClick={handleClickDeleteByIndex}
           isLoader={loader && btnName === ButtonName.DeleteByIndex}
           text="Удалить по индексу"
-          disabled={linkedList.isEmpty() || loader}
+          disabled={
+            linkedList.isEmpty() ||
+            loader ||
+            Number(inputValue.index) > linkedList.getLength() - 1
+          }
           linkedList="big"
           extraClass={style.btnIndex}
         />
@@ -272,7 +281,7 @@ export const ListPage: React.FC = () => {
                 extraClass={style.deleteNodeCircle}
               />
             )}
-            {item.next && <ArrowIcon />}
+            {item.next && <ArrowIcon fill={item.value.color === ElementStates.Changing ? '#D252E1' : undefined}/>}
           </li>
         ))}
       </ul>
