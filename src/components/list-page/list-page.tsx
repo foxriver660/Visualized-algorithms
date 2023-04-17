@@ -174,7 +174,7 @@ export const ListPage: React.FC = () => {
     setInputValue($EMPTY_INPUT);
     setLoader(false);
   };
-  console.log(linkedList);
+  
   return (
     <SolutionLayout title="Связный список">
       <div className={style.wrapper}>
