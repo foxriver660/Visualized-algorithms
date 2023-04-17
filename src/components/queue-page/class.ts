@@ -10,7 +10,7 @@ type TQueue<T> = {
   getHead: () => number;
   isFullQueue: () => boolean;
   isEmpty: () => boolean;
-  reset: () => void;
+  clear: () => void;
 }
 
 export class Queue<T> implements TQueue<T> {
@@ -69,7 +69,7 @@ export class Queue<T> implements TQueue<T> {
   isFullQueue = (): boolean => {
     return this.tail === this.size;
   };
-  reset() {
+  clear() {
     this.container = Array(this.size).fill(this.item);
     this.head = 0;
     this.tail = 0;

@@ -19,8 +19,8 @@ type TLinkedList<T> = {
   deleteHead: () => void;
   toArray: () => TNode<T>[];
   findByIndex: (index: number) => Node<T>;
-  insertAt: (index: number, data: T) => void;
-  removeAt: (index: number) => void;
+  addByIndex: (index: number, data: T) => void;
+  deleteByIndex: (index: number) => void;
   getLastAddedNode: () => Node<T> | null;
   isEmpty: () => boolean;
   getLength: () => number;
@@ -37,7 +37,6 @@ export class LinkedList<T> implements TLinkedList<T> {
     this.length = 0;
     this.lastAddedNode = null;
     for (let val of values) {
-      console.log(values)
       this.append(val);
     }
   }
@@ -133,7 +132,7 @@ export class LinkedList<T> implements TLinkedList<T> {
     }
     return current!.value;
   }
-  insertAt(index: number, data: T): void {
+  addByIndex(index: number, data: T): void {
     if (index < 0 || index > this.length) {
       throw new Error("Index out of bounds");
     }
@@ -160,7 +159,7 @@ export class LinkedList<T> implements TLinkedList<T> {
     this.length++;
   }
 
-  removeAt(index: number): T {
+  deleteByIndex(index: number): T {
     if (index < 0 || index >= this.length) {
       throw new Error("Index out of bounds");
     }

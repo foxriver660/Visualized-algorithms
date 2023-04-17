@@ -44,7 +44,7 @@ export const StackPage: React.FC = () => {
   };
 
   const handleClickClear = () => {
-    stack.reset();
+    stack.clear();
     setRenderArr([...stack.getContainer()]);
   };
 

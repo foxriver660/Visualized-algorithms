@@ -43,7 +43,7 @@ export const QueuePage: React.FC = () => {
   };
 
   const handleClickClear = () => {
-    queue.reset();
+    queue.clear();
     setRenderArr([...queue.getContainer()]);
   };
 

@@ -8,9 +8,8 @@ import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import style from "./string.module.css";
+import { swap } from "./utils";
 
-const swap = (arr: TElement[], i: number, j: number) =>
-  ([arr[i], arr[j]] = [arr[j], arr[i]]);
 
 export const StringComponent: React.FC = () => {
   const [inputValue, setInputValue] = useState<TElement[]>([]);
@@ -50,7 +49,7 @@ export const StringComponent: React.FC = () => {
   return (
     <SolutionLayout title="Строка">
       <div className={style.wrapper}>
-        <Input isLimitText={true} maxLength={11} onChange={handleChange} />
+        <Input isLimitText={true} maxLength={11} onChange={handleChange}/>
         <Button
           onClick={(e) => handleClick(inputValue)}
           isLoader={loader}

@@ -6,14 +6,7 @@ import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import style from "./fibonacci-page.module.css";
-
-const fib = (n: number) => {
-  let arr: number[] = [0, 1];
-  for (let i = 2; i < n + 1; i++) {
-    arr.push(arr[i - 2] + arr[i - 1]);
-  }
-  return arr;
-};
+import { getFibonacciNumbers } from "./utils";
 
 export const FibonacciPage: React.FC = () => {
   const [numberInput, setNumberInput] = useState<number>(0);
@@ -24,7 +17,7 @@ export const FibonacciPage: React.FC = () => {
     setNumberInput(Number(e.target.value));
 
   const handleClick = async () => {
-    const arr = fib(numberInput);
+    const arr = getFibonacciNumbers(numberInput);
     setLoader(true);
     for (let i = 0; i < arr.length; i++) {
       await timeOut(SHORT_DELAY_IN_MS);

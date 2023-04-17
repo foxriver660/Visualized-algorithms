@@ -3,7 +3,7 @@ export type TStack<T> = {
   pop: () => void;
   peak: () => T | null;
   getContainer: () => T[];
-  reset: () => number;
+  clear: () => number;
 };
 
 export class Stack<T> implements TStack<T> {
@@ -23,5 +23,5 @@ export class Stack<T> implements TStack<T> {
     return null;
   };
   getContainer = (): T[] => this.container;
-  reset = (): number => (this.container.length = 0);
+  clear = (): number => (this.container.length = 0);
 }

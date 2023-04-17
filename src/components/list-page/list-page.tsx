@@ -132,7 +132,7 @@ export const ListPage: React.FC = () => {
       await timeOut(SHORT_DELAY_IN_MS);
     }
     setAddNode(false);
-    linkedList.insertAt(Number(inputValue.index), {
+    linkedList.addByIndex(Number(inputValue.index), {
       value: inputValue.value,
       color: ElementStates.Modified,
     });
@@ -165,7 +165,7 @@ export const ListPage: React.FC = () => {
 
     await timeOut(SHORT_DELAY_IN_MS);
     setDeleteNode(false);
-    linkedList.removeAt(Number(inputValue.index));
+    linkedList.deleteByIndex(Number(inputValue.index));
     setRenderArr(linkedList.toArray());
     linkedList
       .toArray()
