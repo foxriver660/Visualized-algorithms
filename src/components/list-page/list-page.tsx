@@ -3,7 +3,7 @@ import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 import { ButtonName } from "../../types/buttons-name";
 import { ElementStates } from "../../types/element-states";
 import { timeOut} from "../../utils/delay";
-import { getRandomArray } from "../sorting-page/utils";
+import { getRandomArray } from "../../utils/random-generate";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { ArrowIcon } from "../ui/icons/arrow-icon";

@@ -59,11 +59,13 @@ export const StringComponent: React.FC = () => {
           linkedList="small"
         />
       </div>
-      <div className={style.stringWrapper}>
+      <ul className={style.stringWrapper}>
         {inputValue.map((item: TElement, index: number) => (
-          <Circle key={index} letter={item.value} state={item.color} />
+          <li key={index}>
+            <Circle letter={item.value} state={item.color} />
+          </li>
         ))}
-      </div>
+      </ul>
     </SolutionLayout>
   );
 };

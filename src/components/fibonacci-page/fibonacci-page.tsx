@@ -1,5 +1,6 @@
-import { format } from "path";
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays";
+import { timeOut } from "../../utils/delay";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
@@ -11,19 +12,22 @@ const fib = (n: number) => {
   for (let i = 2; i < n + 1; i++) {
     arr.push(arr[i - 2] + arr[i - 1]);
   }
-  return arr; 
+  return arr;
 };
 
 export const FibonacciPage: React.FC = () => {
-  const [numberInput, setNumberInput] = useState<any>(null);
-  const [fibArr, setFibArr] = useState<any>([]);
+  const [numberInput, setNumberInput] = useState<number>(0);
+  const [fibArr, setFibArr] = useState<number[]>([]);
   const [loader, setLoader] = useState(false);
-  const handleChange = (e: any) => setNumberInput(Number(e.target.value));
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setNumberInput(Number(e.target.value));
+
   const handleClick = async () => {
     const arr = fib(numberInput);
     setLoader(true);
     for (let i = 0; i < arr.length; i++) {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await timeOut(SHORT_DELAY_IN_MS);
       setFibArr(arr.slice(0, i + 1));
     }
     setLoader(false);
@@ -40,16 +44,19 @@ export const FibonacciPage: React.FC = () => {
         <Button
           onClick={handleClick}
           isLoader={loader}
-          text="Развернуть"
+          text="Рассчитать"
           disabled={numberInput <= 19 && numberInput >= 1 ? false : true}
           linkedList="small"
+          value={numberInput}
         />
       </div>
-      <div className={style.numbersWrapper}>
+      <ul className={style.numbersWrapper}>
         {fibArr.map((n: number, index: number) => (
-          <Circle key={index} letter={`${n}`} index={index} />
+          <li key={index}>
+            <Circle letter={`${n}`} index={index} />
+          </li>
         ))}
-      </div>
+      </ul>
     </SolutionLayout>
   );
 };
