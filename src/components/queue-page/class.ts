@@ -69,7 +69,7 @@ export class Queue<T> implements TQueue<T> {
   isFullQueue = (): boolean => {
     return this.tail === this.size;
   };
-  clear() {
+  clear =(): void => {
     this.container = Array(this.size).fill(this.item);
     this.head = 0;
     this.tail = 0;
