@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays";
+import { TElement } from "../../types/element";
 import { ElementStates } from "../../types/element-states";
+import { timeOut } from "../../utils/delay";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
@@ -8,41 +11,42 @@ import { Queue } from "./class";
 import style from "./queue-page.module.css";
 
 export const QueuePage: React.FC = () => {
-  const [inputValue, setInputValue] = useState<any>("");
-  const [queue] = useState<any>(new Queue<any>(7));
-  const [arr, setArr] = useState<any>(queue.getContainer());
+  const [inputValue, setInputValue] = useState<string>("");
+  const [queue] = useState(new Queue<TElement>(7));
+  const [renderArr, setRenderArr] = useState<TElement[]>(queue.getContainer());
   const [loaderEnqueue, setLoaderEnqueue] = useState(false);
   const [loaderDequeue, setLoaderDequeue] = useState(false);
-  const handleChange = (e: any) => setInputValue(e.target.value);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setInputValue(e.target.value);
 
-  const handleClickEnqueue = async (e: any) => {
+  const handleClickEnqueue = async () => {
     if (inputValue) {
       setLoaderEnqueue(true);
       queue.enqueue({ value: inputValue, color: ElementStates.Changing });
       setInputValue("");
-      setArr([...queue.getContainer()]);
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      setRenderArr([...queue.getContainer()]);
+      await timeOut(SHORT_DELAY_IN_MS);
       queue.getContainer()[queue.getTail() - 1].color = ElementStates.Default;
-      setArr([...queue.getContainer()]);
+      setRenderArr([...queue.getContainer()]);
       setLoaderEnqueue(false);
     }
   };
 
-  const handleClickDequeue = async (e: any) => {
+  const handleClickDequeue = async () => {
     setLoaderDequeue(true);
     queue.getContainer()[queue.getHead()].color = ElementStates.Changing;
-    setArr([...queue.getContainer()]);
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    setRenderArr([...queue.getContainer()]);
+    await timeOut(SHORT_DELAY_IN_MS);
     queue.dequeue();
-    setArr([...queue.getContainer()]);
+    setRenderArr([...queue.getContainer()]);
     setLoaderDequeue(false);
   };
 
-  const handleClickClear = (e: any) => {
+  const handleClickClear = () => {
     queue.reset();
-    setArr([...queue.getContainer()]);
+    setRenderArr([...queue.getContainer()]);
   };
-  
+
   return (
     <SolutionLayout title="Очередь">
       <div className={style.wrapper}>
@@ -80,17 +84,13 @@ export const QueuePage: React.FC = () => {
         />
       </div>
       <div className={style.queueWrapper}>
-        {arr.map((item: any, index: number) => (
+        {renderArr.map((item: TElement, index: number) => (
           <Circle
             key={index}
             index={index}
             letter={item.value}
             state={item.color}
-            head={
-              (index === queue.getHead() && !queue.isEmpty()) || item.head
-                ? "head"
-                : ""
-            }
+            head={index === queue.getHead() && !queue.isEmpty() ? "head" : ""}
             tail={
               index === queue.getTail() - 1 && !queue.isEmpty() ? "tail" : ""
             }

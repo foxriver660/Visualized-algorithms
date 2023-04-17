@@ -4,10 +4,17 @@ interface IQueue<T> {
   enqueue: (item: T) => void;
   dequeue: () => void;
   peak: () => T | null;
+  getContainer: () => T[];
+  getLength: () => number;
+  getTail: () => number;
+  getHead: () => number;
+  isFullQueue: () => boolean;
+  isEmpty: () => boolean;
+  reset: () => void;
 }
 
 export class Queue<T> implements IQueue<T> {
-  private container: (T | null)[] = [];
+  private container: T[] = [];
   private item = { value: "", color: ElementStates.Default };
   private head = 0;
   private tail = 0;
@@ -22,11 +29,11 @@ export class Queue<T> implements IQueue<T> {
     if (this.getLength() >= this.size) {
       throw new Error("Maximum length exceeded");
     }
-    if (this.tail === 7) {
+    if (this.tail === this.size) {
       this.container[this.tail % this.size] = item;
       this.tail = -1;
     }
-    if (this.head < 7) {
+    if (this.head < this.size) {
       this.container[this.tail % this.size] = item;
       this.tail++;
     }
@@ -47,25 +54,25 @@ export class Queue<T> implements IQueue<T> {
 
     return this.container[this.head];
   };
-  getLength() {
+  getLength = (): number => {
     return this.tail - this.head;
-  }
-  getTail() {
+  };
+  getTail = (): number => {
     return this.tail;
-  }
-  getHead() {
+  };
+  getHead = (): number => {
     return this.head;
-  }
-  getContainer() {
+  };
+  getContainer = (): T[] => {
     return this.container;
-  }
-  isFullQueue() {
+  };
+  isFullQueue = (): boolean => {
     return this.tail === this.size;
-  }
+  };
   reset() {
     this.container = Array(this.size).fill(this.item);
     this.head = 0;
     this.tail = 0;
   }
-  isEmpty = () => this.getLength() === 0;
+  isEmpty = (): boolean => this.getLength() === 0;
 }
