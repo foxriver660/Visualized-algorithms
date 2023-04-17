@@ -1,12 +1,12 @@
-export interface IStack<T> {
+export type TStack<T> = {
   push: (item: T) => void;
   pop: () => void;
   peak: () => T | null;
   getContainer: () => T[];
   reset: () => number;
-}
+};
 
-export class Stack<T> implements IStack<T> {
+export class Stack<T> implements TStack<T> {
   private container: T[] = [];
 
   push = (item: T): void => {

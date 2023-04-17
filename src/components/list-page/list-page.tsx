@@ -1,39 +1,47 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 import { ButtonName } from "../../types/buttons-name";
+import { TElement } from "../../types/element";
 import { ElementStates } from "../../types/element-states";
-import { timeOut} from "../../utils/delay";
+import { timeOut } from "../../utils/delay";
 import { getRandomArray } from "../../utils/random-generate";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { ArrowIcon } from "../ui/icons/arrow-icon";
 import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
-import { LinkedList } from "./class";
+import { LinkedList, TNode } from "./class";
 import style from "./list-page.module.css";
 
-const emptyInput = { value: "", index: "" };
+const $EMPTY_INPUT = { value: "", index: "" };
+type TEmptyInput = {
+  value: string;
+  index: string;
+};
 
 export const ListPage: React.FC = () => {
+  const [inputValue, setInputValue] = useState<TEmptyInput>($EMPTY_INPUT);
+  const [linkedList] = useState(new LinkedList<TElement>(getRandomArray(3, 3)));
+  const [renderArr, setRenderArr] = useState<Array<TNode<TElement>>>(linkedList.toArray());
+  // РАБОТА С НОДАМИ
   const [addNode, setAddNode] = useState(false);
   const [deleteNode, setDeleteNode] = useState(false);
   const [deleteNodeValue, setDeleteNodeValue] = useState("");
-  const [addIndex, setAddIndex] = useState<any>(null);
-  const [inputValue, setInputValue] = useState<any>(emptyInput);
+  const [addIndex, setAddIndex] = useState<number>(0);
+  //  ДЛЯ ЛОУДЕРОВ
   const [loader, setLoader] = useState(false);
   const [btnName, setBtnName] = useState("");
-  const [linkedList] = useState<any>(new LinkedList(getRandomArray(3, 3)));
-  const [arr, setArr] = useState<any>(linkedList.toArray());
-  const handleChange = (e: any) =>
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
 
   // !ДОБАВИТЬ В HEAD
-  const handleClickPrepend = async (e: any) => {
+  const handleClickPrepend = async () => {
     setLoader(true);
     setBtnName(ButtonName.AddHead);
     setAddNode(true);
     setAddIndex(linkedList.getLength());
-    setArr(linkedList.toArray());
+    setRenderArr(linkedList.toArray());
     await timeOut(SHORT_DELAY_IN_MS);
     linkedList.prepend({
       value: inputValue.value,
@@ -41,19 +49,19 @@ export const ListPage: React.FC = () => {
     });
 
     setAddNode(false);
-    setArr(linkedList.toArray());
+    setRenderArr(linkedList.toArray());
     await timeOut(SHORT_DELAY_IN_MS);
     linkedList.getLastAddedNode().value = {
       value: inputValue.value,
       color: ElementStates.Default,
     };
-    setArr(linkedList.toArray());
-    setInputValue(emptyInput);
+    setRenderArr(linkedList.toArray());
+    setInputValue($EMPTY_INPUT);
     setLoader(false);
   };
 
   // !ДОБАВИТЬ В TAIL
-  const handleClickAppend = async (e: any) => {
+  const handleClickAppend = async () => {
     setLoader(true);
     setBtnName(ButtonName.AddTail);
     setAddNode(true);
@@ -65,18 +73,18 @@ export const ListPage: React.FC = () => {
     });
 
     setAddNode(false);
-    setArr(linkedList.toArray());
+    setRenderArr(linkedList.toArray());
     await timeOut(SHORT_DELAY_IN_MS);
     linkedList.getLastAddedNode().value = {
       value: inputValue.value,
       color: ElementStates.Default,
     };
-    setArr(linkedList.toArray());
-    setInputValue(emptyInput);
+    setRenderArr(linkedList.toArray());
+    setInputValue($EMPTY_INPUT);
     setLoader(false);
   };
   // !УДАЛИТЬ HEAD
-  const handleClickDeleteHead = async (e: any) => {
+  const handleClickDeleteHead = async () => {
     setLoader(true);
     setBtnName(ButtonName.DeleteHead);
     setDeleteNode(true);
@@ -85,12 +93,12 @@ export const ListPage: React.FC = () => {
     linkedList.findByIndex(0).value = "";
     await timeOut(SHORT_DELAY_IN_MS);
     linkedList.deleteHead();
-    setArr(linkedList.toArray());
+    setRenderArr(linkedList.toArray());
     setDeleteNode(false);
     setLoader(false);
   };
   // !УДАЛИТЬ TAIL
-  const handleClickDeleteTail = async (e: any) => {
+  const handleClickDeleteTail = async () => {
     setLoader(true);
     setBtnName(ButtonName.DeleteTail);
     setDeleteNode(true);
@@ -101,68 +109,68 @@ export const ListPage: React.FC = () => {
     linkedList.findByIndex(linkedList.getLength() - 1).value = "";
     await timeOut(SHORT_DELAY_IN_MS);
     linkedList.deleteTail();
-    setArr(linkedList.toArray());
+    setRenderArr(linkedList.toArray());
     setDeleteNode(false);
     setLoader(false);
   };
 
   // !ДОБАВИТЬ ПО ИНДЕКСУ
-  const handleClickInsertByIndex = async (e: any) => {
+  const handleClickInsertByIndex = async () => {
     setLoader(true);
     setBtnName(ButtonName.AddByIndex);
     setAddNode(true);
-    for (let i = 0; i <= inputValue.index; i++) {
+    for (let i = 0; i <= Number(inputValue.index); i++) {
       setAddIndex(linkedList.getLength() - i);
-      if (i < inputValue.index) {
+      if (i < Number(inputValue.index)) {
         linkedList.findByIndex(i).color = ElementStates.Changing;
       }
-      setArr(linkedList.toArray());
+      setRenderArr(linkedList.toArray());
       await timeOut(SHORT_DELAY_IN_MS);
     }
     setAddNode(false);
-    linkedList.insertAt(inputValue.index, {
+    linkedList.insertAt(Number(inputValue.index), {
       value: inputValue.value,
       color: ElementStates.Modified,
     });
-    setArr(linkedList.toArray());
+    setRenderArr(linkedList.toArray());
     await timeOut(SHORT_DELAY_IN_MS);
     linkedList
       .toArray()
-      .forEach((item: any) => (item.value.color = ElementStates.Default));
-    setArr(linkedList.toArray());
-    setInputValue(emptyInput);
+      .forEach((item) => (item.value.color = ElementStates.Default));
+    setRenderArr(linkedList.toArray());
+    setInputValue($EMPTY_INPUT);
     setLoader(false);
   };
 
   // !УДАЛИТЬ ПО ИНДЕКСУ
-  const handleClickDeleteByIndex = async (e: any) => {
+  const handleClickDeleteByIndex = async () => {
     setLoader(true);
     setBtnName(ButtonName.DeleteByIndex);
-    for (let i = 0; i <= inputValue.index; i++) {
-      if (i < inputValue.index) {
+    for (let i = 0; i <= Number(inputValue.index); i++) {
+      if (i < Number(inputValue.index)) {
         linkedList.findByIndex(i).color = ElementStates.Changing;
       }
-      setArr(linkedList.toArray());
+      setRenderArr(linkedList.toArray());
       await timeOut(SHORT_DELAY_IN_MS);
     }
     setDeleteNodeValue(linkedList.findByIndex(inputValue.index).value);
     setDeleteNode(true);
-    setAddIndex(linkedList.getLength() - inputValue.index);
+    setAddIndex(linkedList.getLength() - Number(inputValue.index));
     linkedList.findByIndex(inputValue.index).value = "";
-    setArr(linkedList.toArray());
+    setRenderArr(linkedList.toArray());
 
     await timeOut(SHORT_DELAY_IN_MS);
     setDeleteNode(false);
-    linkedList.removeAt(inputValue.index);
-    setArr(linkedList.toArray());
+    linkedList.removeAt(Number(inputValue.index));
+    setRenderArr(linkedList.toArray());
     linkedList
       .toArray()
-      .forEach((item: any) => (item.value.color = ElementStates.Default));
-    setArr(linkedList.toArray());
-    setInputValue(emptyInput);
+      .forEach((item) => (item.value.color = ElementStates.Default));
+    setRenderArr(linkedList.toArray());
+    setInputValue($EMPTY_INPUT);
     setLoader(false);
   };
-
+  console.log(renderArr);
   return (
     <SolutionLayout title="Связный список">
       <div className={style.wrapper}>
@@ -236,7 +244,7 @@ export const ListPage: React.FC = () => {
         />
       </div>
       <ul className={style.listWrapper}>
-        {arr.map((item: any, index: number) => (
+        {renderArr.map((item: any, index: number) => (
           <li className={style.list} key={index}>
             {addNode && linkedList.getLength() - addIndex === index && (
               <Circle

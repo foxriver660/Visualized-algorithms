@@ -1,6 +1,6 @@
 import { ElementStates } from "../../types/element-states";
 
-interface IQueue<T> {
+type TQueue<T> = {
   enqueue: (item: T) => void;
   dequeue: () => void;
   peak: () => T | null;
@@ -13,7 +13,7 @@ interface IQueue<T> {
   reset: () => void;
 }
 
-export class Queue<T> implements IQueue<T> {
+export class Queue<T> implements TQueue<T> {
   private container: T[] = [];
   private item = { value: "", color: ElementStates.Default };
   private head = 0;

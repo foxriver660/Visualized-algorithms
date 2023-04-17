@@ -1,20 +1,24 @@
-export class Node<T> {
+export type TNode<T> = {
+  value: T;
+  next: TNode<T> | null;
+}
+
+export class Node<T> implements TNode<T> {
   value: T;
   next: Node<T> | null;
-    constructor(value: T, next: Node<T> | null = null) {
+  constructor(value: T, next: Node<T> | null = null) {
     this.value = value;
     this.next = next;
   }
 }
 
-interface ILinkedList<T> {
+type TLinkedList<T> = {
   append: (element: T) => void;
-  /* insertInPosition: (element: T, position: number) => void; */
+
   getLength: () => number;
-  print: () => void;
 }
 
-export class LinkedList<T> implements ILinkedList<T> {
+export class LinkedList<T> implements TLinkedList<T> {
   private head: Node<T> | null;
   private tail: Node<T> | null;
   private length: number;
@@ -186,14 +190,5 @@ export class LinkedList<T> implements ILinkedList<T> {
   }
   isEmpty() {
     return this.length === 0;
-  }
-  print() {
-    let curr = this.head;
-    let res = "";
-    while (curr) {
-      res += `${curr.value} `;
-      curr = curr.next;
-    }
-    console.log(res);
   }
 }
