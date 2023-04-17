@@ -1,45 +1,48 @@
-import React, { ChangeEvent, SetStateAction, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+import { DELAY_IN_MS } from "../../constants/delays";
+import { TElement } from "../../types/element";
 import { ElementStates } from "../../types/element-states";
+import { timeOut } from "../../utils/delay";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import style from "./string.module.css";
 
-const swap = (arr: any, i: any, j: any) =>
+const swap = (arr: TElement[], i: number, j: number) =>
   ([arr[i], arr[j]] = [arr[j], arr[i]]);
 
 export const StringComponent: React.FC = () => {
-  const [textInput, setTextInput] = useState<any>([]);
+  const [inputValue, setInputValue] = useState<TElement[]>([]);
   const [loader, setLoader] = useState(false);
 
-  const handleChange = (e: any) =>
-    setTextInput(
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setInputValue(
       e.target.value.split("").map((value: string) => {
         return { value, color: ElementStates.Default };
       })
     );
 
-  const handleClick = async (textInput: any) => {
+  const handleClick = async (value: TElement[]) => {
     setLoader(true);
-    const mid = Math.ceil(textInput.length / 2);
+    const mid = Math.ceil(value.length / 2);
 
     for (let i = 0; i < mid; i++) {
-      let j = textInput.length - 1 - i;
+      let j = value.length - 1 - i;
 
       if (i !== j) {
-        textInput[i].color = ElementStates.Changing;
-        textInput[j].color = ElementStates.Changing;
-        setTextInput([...textInput]);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        value[i].color = ElementStates.Changing;
+        value[j].color = ElementStates.Changing;
+        setInputValue([...value]);
+        await timeOut(DELAY_IN_MS);
       }
 
-      swap(textInput, i, j);
+      swap(value, i, j);
 
-      textInput[i].color = ElementStates.Modified;
-      textInput[j].color = ElementStates.Modified;
+      value[i].color = ElementStates.Modified;
+      value[j].color = ElementStates.Modified;
 
-      setTextInput([...textInput]);
+      setInputValue([...value]);
     }
     setLoader(false);
   };
@@ -49,15 +52,15 @@ export const StringComponent: React.FC = () => {
       <div className={style.wrapper}>
         <Input isLimitText={true} maxLength={11} onChange={handleChange} />
         <Button
-          onClick={(e) => handleClick(textInput)}
+          onClick={(e) => handleClick(inputValue)}
           isLoader={loader}
           text="Развернуть"
-          disabled={textInput.length ? false : true}
+          disabled={!inputValue.length}
           linkedList="small"
         />
       </div>
-      <div className={style.circleWrapper}>
-        {textInput.map((item: any, index: number | undefined) => (
+      <div className={style.stringWrapper}>
+        {inputValue.map((item: TElement, index: number) => (
           <Circle key={index} letter={item.value} state={item.color} />
         ))}
       </div>
