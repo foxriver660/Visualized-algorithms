@@ -246,7 +246,7 @@ export const ListPage: React.FC = () => {
           isLoader={loader && btnName === ButtonName.DeleteByIndex}
           text="Удалить по индексу"
           disabled={
-            linkedList.isEmpty() ||
+            !inputValue.index || linkedList.isEmpty() ||
             loader ||
             Number(inputValue.index) > linkedList.getLength() - 1
           }
