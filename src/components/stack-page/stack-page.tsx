@@ -1,45 +1,54 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays";
+import { TElement } from "../../types/element";
 import { ElementStates } from "../../types/element-states";
+import { timeOut } from "../../utils/delay";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
+import { Stack } from "./class";
 import style from "./stack-page.module.css";
 
 export const StackPage: React.FC = () => {
-  const [inputValue, setInputValue] = useState<any>("");
-  const [stack, setStack] = useState<any>([]);
+  const [inputValue, setInputValue] = useState<string>("");
+  const [stack] = useState(new Stack<TElement>());
+  const [renderArr, setRenderArr] = useState<TElement[]>([]);
   const [loaderAdd, setLoaderAdd] = useState(false);
   const [loaderDelete, setLoaderDelete] = useState(false);
-  const handleChange = (e: any) => setInputValue(e.target.value);
 
-  const handleClickPush = async (e: any) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setInputValue(e.target.value);
+
+  const handleClickPush = async () => {
     if (inputValue) {
       setLoaderAdd(true);
       stack.push({ value: inputValue, color: ElementStates.Changing });
+      setRenderArr([...stack.getContainer()]);
       setInputValue("");
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      stack[stack.length - 1].color = ElementStates.Default;
-      setStack([...stack]);
+      await timeOut(SHORT_DELAY_IN_MS);
+      stack.peak()!.color = ElementStates.Default;
+      setRenderArr([...stack.getContainer()]);
       setLoaderAdd(false);
     }
   };
 
-  const handleClickPop = async (e: any) => {
+  const handleClickPop = async () => {
     setLoaderDelete(true);
-    stack[stack.length - 1].color = ElementStates.Changing;
-    /* setStack([...stack]); */
+    stack.peak()!.color = ElementStates.Changing;
+    setRenderArr([...stack.getContainer()]);
     stack.pop();
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    setStack([...stack]);
+    await timeOut(SHORT_DELAY_IN_MS);
+    setRenderArr([...stack.getContainer()]);
     setLoaderDelete(false);
   };
 
-  const handleClickClear = (e: any) => {
-    setStack([]);
+  const handleClickClear = () => {
+    stack.reset();
+    setRenderArr([...stack.getContainer()]);
   };
 
-  const getPosition = (index: number, arr: any): string => {
+  const getPosition = (index: number, arr: TElement[]): string => {
     if (index === arr.length - 1) {
       return "top";
     } else {
@@ -70,29 +79,30 @@ export const StackPage: React.FC = () => {
           onClick={handleClickPop}
           isLoader={loaderDelete}
           text="Удалить"
-          disabled={loaderAdd || !stack.length}
+          disabled={loaderAdd || !renderArr.length}
           linkedList="small"
           extraClass={`mr-40 ${style.deleteBtn}`}
         />
         <Button
           onClick={handleClickClear}
           text="Очистить"
-          disabled={loaderDelete || loaderAdd || !stack.length}
+          disabled={loaderDelete || loaderAdd || !renderArr.length}
           linkedList="small"
           extraClass={style.clearBtn}
         />
       </div>
-      <div className={style.stackWrapper}>
-        {stack.map((item: any, index: number) => (
-          <Circle
-            key={index}
-            index={index}
-            letter={item.value}
-            state={item.color}
-            head={getPosition(index, stack)}
-          />
+      <ul className={style.stackWrapper}>
+        {renderArr.map((item: TElement, index: number) => (
+          <li key={index}>
+            <Circle
+              index={index}
+              letter={item.value}
+              state={item.color}
+              head={getPosition(index, renderArr)}
+            />
+          </li>
         ))}
-      </div>
+      </ul>
     </SolutionLayout>
   );
 };
