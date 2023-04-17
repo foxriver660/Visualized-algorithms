@@ -33,7 +33,7 @@ export const SortingPage: React.FC = () => {
       bubbleSort(renderArr, setRenderArr, setLoaderDecrease);
     }
   };
-  console.log(renderArr);
+
   return (
     <SolutionLayout title="Сортировка массива">
       <div className={style.wrapper}>

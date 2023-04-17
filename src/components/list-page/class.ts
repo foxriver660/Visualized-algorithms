@@ -1,7 +1,7 @@
 export type TNode<T> = {
   value: T;
   next: TNode<T> | null;
-}
+};
 
 export class Node<T> implements TNode<T> {
   value: T;
@@ -14,25 +14,34 @@ export class Node<T> implements TNode<T> {
 
 type TLinkedList<T> = {
   append: (element: T) => void;
-
+  prepend: (element: T) => void;
+  deleteTail: () => void;
+  deleteHead: () => void;
+  toArray: () => TNode<T>[];
+  findByIndex: (index: number) => Node<T>;
+  insertAt: (index: number, data: T) => void;
+  removeAt: (index: number) => void;
+  getLastAddedNode: () => Node<T> | null;
+  isEmpty: () => boolean;
   getLength: () => number;
-}
+};
 
 export class LinkedList<T> implements TLinkedList<T> {
   private head: Node<T> | null;
   private tail: Node<T> | null;
   private length: number;
-  private lastAddedNode: any;
-  constructor(values: any = []) {
+  private lastAddedNode: Node<T> | null;
+  constructor(values: T[] = []) {
     this.head = null;
     this.tail = null;
     this.length = 0;
     this.lastAddedNode = null;
     for (let val of values) {
+      console.log(values)
       this.append(val);
     }
   }
-  prepend(value: any) {
+  prepend(value: T) {
     const newNode = new Node(value, this.head);
 
     this.head = newNode;
@@ -45,7 +54,7 @@ export class LinkedList<T> implements TLinkedList<T> {
     this.lastAddedNode = newNode;
     return this;
   }
-  append(value: any) {
+  append(value: T) {
     const newNode = new Node(value);
     if (!this.head || !this.tail) {
       this.head = newNode;
@@ -72,12 +81,12 @@ export class LinkedList<T> implements TLinkedList<T> {
       this.length = 0;
       return deletedTail;
     }
-    let currentNode: any = this.head;
-    while (currentNode.next) {
-      if (!currentNode.next.next) {
-        currentNode.next = null;
+    let currentNode: Node<T> | null = this.head;
+    while (currentNode!.next) {
+      if (!currentNode!.next.next) {
+        currentNode!.next = null;
       } else {
-        currentNode = currentNode.next;
+        currentNode = currentNode!.next;
       }
     }
 
@@ -99,10 +108,10 @@ export class LinkedList<T> implements TLinkedList<T> {
     this.length--;
     return deletedHead;
   }
-  fromArray(values: any) {
+  /* fromArray(values: any) {
     values.forEach((value: any) => this.append(value));
     return this;
-  }
+  } */
   toArray() {
     const nodes = [];
     let currentNode = this.head;
@@ -112,17 +121,17 @@ export class LinkedList<T> implements TLinkedList<T> {
     }
     return nodes;
   }
-  findByIndex(index: any) {
+  findByIndex(index: number) {
     if (index < 0 || index >= this.length) {
       return null;
     }
     let current: any = this.head;
     let i = 0;
     while (i < index) {
-      current = current.next;
+      current = current!.next;
       i++;
     }
-    return current.value;
+    return current!.value;
   }
   insertAt(index: number, data: T): void {
     if (index < 0 || index > this.length) {

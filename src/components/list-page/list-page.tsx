@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 import { ButtonName } from "../../types/buttons-name";
-import { TElement } from "../../types/element";
+import { TElement, TElementNumber } from "../../types/element";
 import { ElementStates } from "../../types/element-states";
 import { timeOut } from "../../utils/delay";
 import { getRandomArray } from "../../utils/random-generate";
@@ -21,8 +21,12 @@ type TEmptyInput = {
 
 export const ListPage: React.FC = () => {
   const [inputValue, setInputValue] = useState<TEmptyInput>($EMPTY_INPUT);
-  const [linkedList] = useState(new LinkedList<TElement>(getRandomArray(3, 3)));
-  const [renderArr, setRenderArr] = useState<Array<TNode<TElement>>>(linkedList.toArray());
+  const [linkedList] = useState(
+    new LinkedList<TElement | TElementNumber>(getRandomArray(3, 3))
+  );
+  const [renderArr, setRenderArr] = useState<
+    Array<TNode<TElement | TElementNumber>>
+  >(linkedList.toArray());
   // РАБОТА С НОДАМИ
   const [addNode, setAddNode] = useState(false);
   const [deleteNode, setDeleteNode] = useState(false);
@@ -51,7 +55,7 @@ export const ListPage: React.FC = () => {
     setAddNode(false);
     setRenderArr(linkedList.toArray());
     await timeOut(SHORT_DELAY_IN_MS);
-    linkedList.getLastAddedNode().value = {
+    linkedList.getLastAddedNode()!.value = {
       value: inputValue.value,
       color: ElementStates.Default,
     };
@@ -75,7 +79,7 @@ export const ListPage: React.FC = () => {
     setAddNode(false);
     setRenderArr(linkedList.toArray());
     await timeOut(SHORT_DELAY_IN_MS);
-    linkedList.getLastAddedNode().value = {
+    linkedList.getLastAddedNode()!.value = {
       value: inputValue.value,
       color: ElementStates.Default,
     };
@@ -153,10 +157,10 @@ export const ListPage: React.FC = () => {
       setRenderArr(linkedList.toArray());
       await timeOut(SHORT_DELAY_IN_MS);
     }
-    setDeleteNodeValue(linkedList.findByIndex(inputValue.index).value);
+    setDeleteNodeValue(linkedList.findByIndex(Number(inputValue.index)).value);
     setDeleteNode(true);
     setAddIndex(linkedList.getLength() - Number(inputValue.index));
-    linkedList.findByIndex(inputValue.index).value = "";
+    linkedList.findByIndex(Number(inputValue.index)).value = "";
     setRenderArr(linkedList.toArray());
 
     await timeOut(SHORT_DELAY_IN_MS);
@@ -170,7 +174,7 @@ export const ListPage: React.FC = () => {
     setInputValue($EMPTY_INPUT);
     setLoader(false);
   };
-  console.log(renderArr);
+
   return (
     <SolutionLayout title="Связный список">
       <div className={style.wrapper}>
@@ -220,8 +224,6 @@ export const ListPage: React.FC = () => {
         <Input
           name="index"
           type="number"
-          /* isLimitText={true}
-          maxLength={4} */
           value={`${inputValue?.index}`}
           onChange={handleChange}
         />

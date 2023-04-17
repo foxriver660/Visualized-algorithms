@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
-import { TElement, TElementNumber } from "../../types/element";
+import { TElementNumber } from "../../types/element";
 import { ElementStates } from "../../types/element-states";
 import { timeOut } from "../../utils/delay";
 // СОРТИРОВКА ВЫБОРОМ
