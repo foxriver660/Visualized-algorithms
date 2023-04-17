@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import { Direction } from "../../types/direction";
-import { TElement } from "../../types/element";
+import { TElementNumber } from "../../types/element";
 import { getRandomArray } from "../../utils/random-generate";
 import { Button } from "../ui/button/button";
 import { Column } from "../ui/column/column";
@@ -11,28 +11,29 @@ import { bubbleSort, selectionSort } from "./utils";
 
 // !ПОДУМАТЬ НАД ТИПИЗАЦИЕЙ arr
 export const SortingPage: React.FC = () => {
-  const [arr, setArr] = useState<any>([]);
-  const [value, setValue] = useState("selection");
+  const [renderArr, setRenderArr] = useState<TElementNumber[]>([]);
+  const [radio, setRadio] = useState("selection");
   const [loaderIncrease, setLoaderIncrease] = useState(false);
   const [loaderDecrease, setLoaderDecrease] = useState(false);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    setRadio(e.target.value);
   };
-  console.log(arr);
+
   const handleClickSortIncrease = () => {
-    if (value === "selection") {
-      setArr(selectionSort(arr, setArr, setLoaderIncrease, false));
+    if (radio === "selection") {
+      selectionSort(renderArr, setRenderArr, setLoaderIncrease, false);
     } else {
-      setArr(bubbleSort(arr, setArr, setLoaderIncrease, false));
+      bubbleSort(renderArr, setRenderArr, setLoaderIncrease, false);
     }
   };
   const handleClickSortDecrease = () => {
-    if (value === "selection") {
-      setArr(selectionSort(arr, setArr, setLoaderDecrease));
+    if (radio === "selection") {
+      selectionSort(renderArr, setRenderArr, setLoaderDecrease);
     } else {
-      setArr(bubbleSort(arr, setArr, setLoaderDecrease));
+      bubbleSort(renderArr, setRenderArr, setLoaderDecrease);
     }
   };
+  console.log(renderArr);
   return (
     <SolutionLayout title="Сортировка массива">
       <div className={style.wrapper}>
@@ -41,7 +42,7 @@ export const SortingPage: React.FC = () => {
           name="sort"
           value="selection"
           extraClass="pr-20"
-          checked={value === "selection" ? true : false}
+          checked={radio === "selection" ? true : false}
           onChange={handleChange}
         />
         <RadioInput
@@ -49,7 +50,7 @@ export const SortingPage: React.FC = () => {
           name="sort"
           value="bubble"
           extraClass="pr-25"
-          checked={value === "bubble" ? true : false}
+          checked={radio === "bubble" ? true : false}
           onChange={handleChange}
         />
         <Button
@@ -71,15 +72,15 @@ export const SortingPage: React.FC = () => {
           extraClass="mr-40"
         />
         <Button
-          onClick={(e) => setArr(getRandomArray(3, 18))}
+          onClick={() => setRenderArr(getRandomArray(3, 18))}
           text="Новый массив"
           disabled={loaderDecrease || loaderIncrease}
           linkedList="big"
         />
       </div>
       <ul className={style.sortWrapper}>
-        {arr.length &&
-          arr.map((item: TElement, index: number) => (
+        {!!renderArr?.length &&
+          renderArr.map((item: TElementNumber, index: number) => (
             <li key={index}>
               <Column index={Number(item.value)} state={item.color} />
             </li>

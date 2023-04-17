@@ -17,7 +17,7 @@ const fib = (n: number) => {
 
 export const FibonacciPage: React.FC = () => {
   const [numberInput, setNumberInput] = useState<number>(0);
-  const [fibArr, setFibArr] = useState<number[]>([]);
+  const [renderArr, setRenderArr] = useState<number[]>([]);
   const [loader, setLoader] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -28,7 +28,7 @@ export const FibonacciPage: React.FC = () => {
     setLoader(true);
     for (let i = 0; i < arr.length; i++) {
       await timeOut(SHORT_DELAY_IN_MS);
-      setFibArr(arr.slice(0, i + 1));
+      setRenderArr(arr.slice(0, i + 1));
     }
     setLoader(false);
   };
@@ -51,7 +51,7 @@ export const FibonacciPage: React.FC = () => {
         />
       </div>
       <ul className={style.numbersWrapper}>
-        {fibArr.map((n: number, index: number) => (
+        {renderArr.map((n: number, index: number) => (
           <li key={index}>
             <Circle letter={`${n}`} index={index} />
           </li>
