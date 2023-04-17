@@ -1,4 +1,4 @@
-.wrapper{
+.wrapper {
   max-width: 522px;
   width: 100%;
   margin: 0 auto;
@@ -6,9 +6,10 @@
   gap: 12px;
   padding-bottom: 120px;
 }
-.circleWrapper{
+.stringWrapper {
   display: flex;
   gap: 16px;
   margin: 0 auto;
   justify-content: center;
+  list-style: none;
 }
