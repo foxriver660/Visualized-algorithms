@@ -1,7 +1,6 @@
 import { ElementStates } from "../../types/element-states";
 import { bubbleSort, selectionSort } from "./utils";
 
-export {};
 
 const inputArr = [
   { value: 2, color: ElementStates.Default },

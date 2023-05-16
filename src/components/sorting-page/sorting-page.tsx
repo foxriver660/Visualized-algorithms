@@ -9,7 +9,6 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import style from "./sorting-page.module.css";
 import { bubbleSort, selectionSort } from "./utils";
 
-// !ПОДУМАТЬ НАД ТИПИЗАЦИЕЙ arr
 export const SortingPage: React.FC = () => {
   const [renderArr, setRenderArr] = useState<TElementNumber[]>([]);
   const [radio, setRadio] = useState("selection");
