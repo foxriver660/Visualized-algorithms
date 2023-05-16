@@ -1,12 +1,11 @@
 import React, { ChangeEvent, useState } from "react";
 import { TElement } from "../../types/element";
-import { ElementStates } from "../../types/element-states";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import style from "./string.module.css";
-import { expandString } from "./utils";
+import { expandString, stringToArr } from "./utils";
 
 export const StringComponent: React.FC = () => {
   const [inputValue, setInputValue] = useState<TElement[]>([]);
@@ -14,9 +13,7 @@ export const StringComponent: React.FC = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setInputValue(
-      e.target.value.split("").map((value: string) => {
-        return { value, color: ElementStates.Default };
-      })
+      stringToArr(e.target.value, false)
     );
 
   const handleClick = () => {

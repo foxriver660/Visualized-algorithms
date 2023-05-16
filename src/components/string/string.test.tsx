@@ -1,17 +1,46 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import renderer from "react-test-renderer";
+import { expandString, stringToArr } from "./utils";
 
 describe("StringFunc", () => {
-  test("с чётным количеством символов", () => {
-    
+  const setterValue = jest.fn();
+  const setterLoader = jest.fn();
+  test("с чётным количеством символов", async () => {
+    const inputValue = "test";
+    const outputValue = "tset";
+    const result = await expandString(
+      stringToArr(inputValue, false),
+      setterValue,
+      setterLoader
+    );
+    expect(result).toEqual(stringToArr(outputValue, true));
   });
-  test("с нечетным количеством символов", () => {
-    
+  test("с нечетным количеством символов", async () => {
+    const inputValue = "oddtest";
+    const outputValue = "tsetddo";
+    const result = await expandString(
+      stringToArr(inputValue, false),
+      setterValue,
+      setterLoader
+    );
+    expect(result).toEqual(stringToArr(outputValue, true));
   });
-  test("с одним символом", () => {
-    
+  test("с одним символом", async () => {
+    const inputValue = "t";
+    const outputValue = "t";
+    const result = await expandString(
+      stringToArr(inputValue, false),
+      setterValue,
+      setterLoader
+    );
+    expect(result).toEqual(stringToArr(outputValue, true));
   });
-  test("пустую строку", () => {
-    
+  test("пустую строку", async () => {
+    const inputValue = "";
+    const outputValue = "";
+    const result = await expandString(
+      stringToArr(inputValue, false),
+      setterValue,
+      setterLoader
+    );
+    expect(result).toEqual(stringToArr(outputValue, true));
   });
 });

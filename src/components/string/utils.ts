@@ -6,6 +6,11 @@ import { timeOut } from "../../utils/delay";
 const swap = (arr: TElement[], i: number, j: number) =>
   ([arr[i], arr[j]] = [arr[j], arr[i]]);
 
+export const stringToArr = (value: string, modified: boolean) =>
+  value.split("").map((value: string) => {
+    return { value, color: modified ? ElementStates.Modified : ElementStates.Default };
+  });
+
 export const expandString = async (
   value: TElement[],
   setterValue: any,
@@ -32,4 +37,5 @@ export const expandString = async (
     setterValue([...value]);
   }
   setterLoader(false);
+  return value
 };
