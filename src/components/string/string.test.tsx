@@ -1,46 +1,19 @@
 import { expandString, stringToArr } from "./utils";
 
-describe("StringFunc", () => {
+
+describe('expandStringFunc', () => {
   const setterValue = jest.fn();
   const setterLoader = jest.fn();
-  test("с чётным количеством символов", async () => {
-    const inputValue = "test";
-    const outputValue = "tset";
-    const result = await expandString(
-      stringToArr(inputValue, false),
-      setterValue,
-      setterLoader
-    );
-    expect(result).toEqual(stringToArr(outputValue, true));
-  });
-  test("с нечетным количеством символов", async () => {
-    const inputValue = "oddtest";
-    const outputValue = "tsetddo";
-    const result = await expandString(
-      stringToArr(inputValue, false),
-      setterValue,
-      setterLoader
-    );
-    expect(result).toEqual(stringToArr(outputValue, true));
-  });
-  test("с одним символом", async () => {
-    const inputValue = "t";
-    const outputValue = "t";
-    const result = await expandString(
-      stringToArr(inputValue, false),
-      setterValue,
-      setterLoader
-    );
-    expect(result).toEqual(stringToArr(outputValue, true));
-  });
-  test("пустую строку", async () => {
-    const inputValue = "";
-    const outputValue = "";
-    const result = await expandString(
-      stringToArr(inputValue, false),
-      setterValue,
-      setterLoader
-    );
-    expect(result).toEqual(stringToArr(outputValue, true));
+  
+  const testCases = [
+    { input: 'test', expected: 'tset' },
+    { input: 'oddtest', expected: 'tsetddo' }, 
+    { input: 't', expected: 't' },
+    { input: '', expected: '' }
+  ];
+
+  test.each(testCases)('TEST FAILED: %s', async ({ input, expected }) => {
+    const result = await expandString(stringToArr(input, false), setterValue, setterLoader);
+    expect(result).toEqual(stringToArr(expected, true));
   });
 });

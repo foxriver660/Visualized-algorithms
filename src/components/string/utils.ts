@@ -13,10 +13,10 @@ export const stringToArr = (value: string, modified: boolean) =>
 
 export const expandString = async (
   value: TElement[],
-  setterValue: any,
-  setterLoader: any
+  setValue: any,
+  setLoader: any
 ) => {
-  setterLoader(true);
+  setLoader(true);
   const mid = Math.ceil(value.length / 2);
 
   for (let i = 0; i < mid; i++) {
@@ -25,7 +25,7 @@ export const expandString = async (
     if (i !== j) {
       value[i].color = ElementStates.Changing;
       value[j].color = ElementStates.Changing;
-      setterValue([...value]);
+      setValue([...value]);
       await timeOut(DELAY_IN_MS);
     }
 
@@ -34,8 +34,8 @@ export const expandString = async (
     value[i].color = ElementStates.Modified;
     value[j].color = ElementStates.Modified;
 
-    setterValue([...value]);
+    setValue([...value]);
   }
-  setterLoader(false);
+  setLoader(false);
   return value
 };
