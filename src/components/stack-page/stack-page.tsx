@@ -68,6 +68,7 @@ export const StackPage: React.FC = () => {
         />
 
         <Button
+          type="submit"
           onClick={handleClickPush}
           isLoader={loaderAdd}
           text="Добавить"
@@ -76,6 +77,7 @@ export const StackPage: React.FC = () => {
           extraClass={`mr-6 ${style.addBtn}`}
         />
         <Button
+          data-cy="remove"
           onClick={handleClickPop}
           isLoader={loaderDelete}
           text="Удалить"

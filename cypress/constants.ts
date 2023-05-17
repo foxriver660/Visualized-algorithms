@@ -12,3 +12,4 @@ export const CY_CIRCLE_INDEX = "[data-cy=index]";
 export const CY_CIRCLE_TAIL = "[data-cy=tail]";
 
 export const CY_SUBMIT_BTN = "button[type='submit']"
+export const CY_REMOVE_BTN = "[data-cy=remove]";
