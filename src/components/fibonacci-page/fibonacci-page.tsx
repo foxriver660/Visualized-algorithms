@@ -9,7 +9,7 @@ import style from "./fibonacci-page.module.css";
 import { getFibonacciNumbers } from "./utils";
 
 export const FibonacciPage: React.FC = () => {
-  const [numberInput, setNumberInput] = useState<number | string>('');
+  const [numberInput, setNumberInput] = useState<number | string>("");
   const [renderArr, setRenderArr] = useState<number[]>([]);
   const [loader, setLoader] = useState(false);
 
@@ -36,6 +36,7 @@ export const FibonacciPage: React.FC = () => {
           value={numberInput}
         />
         <Button
+          type="submit"
           onClick={handleClick}
           isLoader={loader}
           text="Рассчитать"

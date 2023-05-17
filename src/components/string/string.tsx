@@ -24,6 +24,7 @@ export const StringComponent: React.FC = () => {
       <div className={style.wrapper}>
         <Input isLimitText={true} maxLength={11} onChange={handleChange} />
         <Button
+        type="submit"
           onClick={handleClick}
           isLoader={loader}
           text="Развернуть"
@@ -34,7 +35,7 @@ export const StringComponent: React.FC = () => {
       <ul className={style.stringWrapper}>
         {inputValue.map((item: TElement, index: number) => (
           <li key={index}>
-            <Circle letter={item.value} state={item.color} />
+            <Circle  letter={item.value} state={item.color} />
           </li>
         ))}
       </ul>
