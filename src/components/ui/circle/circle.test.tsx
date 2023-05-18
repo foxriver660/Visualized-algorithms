@@ -1,4 +1,3 @@
-import { fireEvent, render, screen } from "@testing-library/react";
 import { Circle } from "./circle";
 import renderer from "react-test-renderer";
 import { ElementStates } from "../../../types/element-states";
@@ -41,15 +40,11 @@ describe("CircleComponent", () => {
     expect(tree).toMatchSnapshot();
   });
   test("в состоянии changing", () => {
-    const tree = renderer
-      .create(<Circle state={ElementStates.Changing} />)
-      .toJSON();
+    const tree = renderer.create(<Circle state={ElementStates.Changing} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
   test("в состоянии modified", () => {
-    const tree = renderer
-      .create(<Circle state={ElementStates.Modified} />)
-      .toJSON();
+    const tree = renderer.create(<Circle state={ElementStates.Modified} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

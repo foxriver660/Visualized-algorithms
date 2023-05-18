@@ -105,7 +105,6 @@ describe("визуализация алгоритма", () => {
   });
   it("удаление элемента из head", () => {
     cy.clock();
-    // cy.get(CY_CIRCLE).eq(0).invoke("text").as("deletedCircleText");
     cy.get(CY_REMOVE_BTN).eq(0).click();
     cy.get(CY_CIRCLE).each(($circle, index) => {
       cy.wrap($circle)
@@ -113,7 +112,6 @@ describe("визуализация алгоритма", () => {
         .invoke("text")
         .should(index === 0 ? "be.empty" : "not.be.empty");
     });
-    // cy.get(CY_CIRCLE).eq(1); СДЕЛАТЬ ПРОВЕРКУ НА ЗНАЧЕНИЕ
     cy.tick(CY_SHORT_DELAY);
     cy.get(CY_CIRCLE)
       .should("have.length", 3)
@@ -159,7 +157,6 @@ describe("визуализация алгоритма", () => {
 
   it("удаление элемента из tail", () => {
     cy.clock();
-    // cy.get(CY_CIRCLE).eq(0).invoke("text").as("deletedCircleText");
     cy.get(CY_REMOVE_BTN).eq(1).click();
     cy.get(CY_CIRCLE).each(($circle, index) => {
       cy.wrap($circle)
@@ -167,7 +164,6 @@ describe("визуализация алгоритма", () => {
         .invoke("text")
         .should(index === 3 ? "be.empty" : "not.be.empty");
     });
-    // cy.get(CY_CIRCLE).eq(1); СДЕЛАТЬ ПРОВЕРКУ НА ЗНАЧЕНИЕ
     cy.tick(CY_SHORT_DELAY);
     cy.get(CY_CIRCLE)
       .should("have.length", 3)
