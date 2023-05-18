@@ -1,4 +1,4 @@
-import { CHANGING_COLOR, CY_BASE_URL, CY_CIRCLE_CIRCLE, CY_REMOVE_BTN, CY_SUBMIT_BTN, DEFAULT_COLOR } from "../constants";
+import { CHANGING_COLOR, CY_BASE_URL, CY_CIRCLE_CIRCLE, CY_REMOVE_BTN, CY_RESET_BTN, CY_SUBMIT_BTN, DEFAULT_COLOR } from "../constants";
 
 describe("корректная работа кнопки на странице /recursion", () => {
   beforeEach(() => {
@@ -23,13 +23,13 @@ describe("корректная работа кнопки на странице /
 });
 
 describe("визуализация алгоритма", () => {
+  const test_arr = ["FE", "DM", "PT"];
   beforeEach(() => {
     cy.visit(`${CY_BASE_URL}/stack`);
   });
 
   it("правильность добавления и удаления элементов в стек", () => {
-    const test_arr = ["FE", "DM", "PT"];
-    cy.clock();
+        cy.clock();
     // ДОБАВЛЕНИЕ
     for (let i = 0; i < test_arr.length; i++) {
       cy.get("input").type(test_arr[i]);
@@ -62,6 +62,15 @@ describe("визуализация алгоритма", () => {
   });
  
   it("поведение кнопки «Очистить»", () => {
-    cy.clock();
+     cy.clock();
+     cy.get(CY_RESET_BTN).should("be.disabled")
+    for(let k = 0; k<test_arr.length; k++){
+      cy.get("input").type(test_arr[k]);
+      cy.get(CY_SUBMIT_BTN).click();
+      cy.tick(500);
+    }
+    cy.get(CY_RESET_BTN).should("not.be.disabled");
+    cy.get(CY_RESET_BTN).click();
+    cy.get(CY_CIRCLE_CIRCLE).should('not.exist'); 
   });
 });

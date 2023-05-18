@@ -86,6 +86,7 @@ export const StackPage: React.FC = () => {
           extraClass={`mr-40 ${style.deleteBtn}`}
         />
         <Button
+          type="reset"
           onClick={handleClickClear}
           text="Очистить"
           disabled={loaderDelete || loaderAdd || !renderArr.length}
