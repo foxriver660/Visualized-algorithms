@@ -1,6 +1,7 @@
-import { CY_CIRCLE_CIRCLE, CY_SUBMIT_BTN } from "../constants";
+import { CY_CIRCLE, CY_INPUT, CY_SHORT_DELAY, CY_SUBMIT_BTN, DEFAULT_COLOR, FIBBONACHI_NUMBERS } from "../constants";
 
 describe("корректная работа кнопки на странице /recursion", () => {
+  const testValue = 10;
   beforeEach(() => {
     cy.visit(`/fibonacci`);
   });
@@ -10,33 +11,32 @@ describe("корректная работа кнопки на странице /
   });
 
   it("должна становиться активной при вводе данных", () => {
-    cy.get("input").type(10);
+    cy.get(CY_INPUT).type(testValue);
     cy.get(CY_SUBMIT_BTN).should("not.be.disabled");
   });
 
   it("должна становиться снова заблокированной при удалении данных", () => {
-    cy.get("input").type(10);
+    cy.get(CY_INPUT).type(testValue);
     cy.get(CY_SUBMIT_BTN).should("not.be.disabled");
-    cy.get("input").clear();
+    cy.get(CY_INPUT).clear();
     cy.get(CY_SUBMIT_BTN).should("be.disabled");
   });
 });
 
 describe("визуализация алгоритма", () => {
-  beforeEach(() => {
+  const testValue = 6; // от 0 до 10
+  before(() => {
     cy.visit(`/fibonacci`);
   });
 
   it("визуализация добавление чисел", () => {
     cy.clock();
-    const fibonacciNumbers = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55];
-    const input = 6; 
-    cy.get("input").type(input);
+    cy.get(CY_INPUT).type(testValue);
     cy.get(CY_SUBMIT_BTN).click();
-    for (let i = 0; i <= input; i++) {
-      cy.tick(500);
+    for (let i = 0; i <= testValue; i++) {
+      cy.tick(CY_SHORT_DELAY);
       for (let j = 0; j <= i; j++) {
-        cy.get(CY_CIRCLE_CIRCLE).eq(j).contains(fibonacciNumbers[j]);
+        cy.get(CY_CIRCLE).eq(j).should("have.css", "border", DEFAULT_COLOR).contains(FIBBONACHI_NUMBERS[j]);
       }
     }
   });
