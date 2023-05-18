@@ -155,7 +155,7 @@ export const ListPage: React.FC = () => {
         linkedList.findByIndex(i).color = ElementStates.Changing;
       }
       setRenderArr(linkedList.toArray());
-      await timeOut(SHORT_DELAY_IN_MS);
+      await timeOut(SHORT_DELAY_IN_MS); 
     }
     setDeleteNodeValue(linkedList.findByIndex(Number(inputValue.index)).value);
     setDeleteNode(true);
@@ -230,6 +230,7 @@ export const ListPage: React.FC = () => {
           type="number"
           value={`${inputValue?.index}`}
           onChange={handleChange}
+          placeholder='Введите индекс'
         />
 
         <Button

@@ -1,6 +1,6 @@
 import {
   CHANGING_COLOR,
-  CY_CIRCLE_CIRCLE,
+  CY_CIRCLE,
   CY_SUBMIT_BTN,
   DEFAULT_COLOR,
   MODIFIED_COLOR,
@@ -35,25 +35,25 @@ describe("визуализация алгоритма", () => {
 
   it("визуализация разворота строки", () => {
     cy.clock();
-    cy.get("input").type("test");
+    cy.get("input").type("qwer");
     cy.get(CY_SUBMIT_BTN).click();
-    cy.get(CY_CIRCLE_CIRCLE).eq(0).as("1");
-    cy.get(CY_CIRCLE_CIRCLE).eq(1).as("2");
-    cy.get(CY_CIRCLE_CIRCLE).eq(2).as("3");
-    cy.get(CY_CIRCLE_CIRCLE).eq(3).as("4");
-    cy.get("@1").should("have.css", "border", CHANGING_COLOR).contains("t");
-    cy.get("@2").should("have.css", "border", DEFAULT_COLOR).contains("e");
-    cy.get("@3").should("have.css", "border", DEFAULT_COLOR).contains("s");
-    cy.get("@4").should("have.css", "border", CHANGING_COLOR).contains("t");
+    cy.get(CY_CIRCLE).eq(0).as("1");
+    cy.get(CY_CIRCLE).eq(1).as("2");
+    cy.get(CY_CIRCLE).eq(2).as("3");
+    cy.get(CY_CIRCLE).eq(3).as("4");
+    cy.get("@1").should("have.css", "border", CHANGING_COLOR).contains("q");
+    cy.get("@2").should("have.css", "border", DEFAULT_COLOR).contains("w");
+    cy.get("@3").should("have.css", "border", DEFAULT_COLOR).contains("e");
+    cy.get("@4").should("have.css", "border", CHANGING_COLOR).contains("r");
     cy.tick(1000);
-    cy.get("@1").should("have.css", "border", MODIFIED_COLOR).contains("t");
-    cy.get("@2").should("have.css", "border", CHANGING_COLOR).contains("e");
-    cy.get("@3").should("have.css", "border", CHANGING_COLOR).contains("s");
-    cy.get("@4").should("have.css", "border", MODIFIED_COLOR).contains("t");
+    cy.get("@1").should("have.css", "border", MODIFIED_COLOR).contains("r");
+    cy.get("@2").should("have.css", "border", CHANGING_COLOR).contains("w");
+    cy.get("@3").should("have.css", "border", CHANGING_COLOR).contains("e");
+    cy.get("@4").should("have.css", "border", MODIFIED_COLOR).contains("q");
     cy.tick(1000);
-    cy.get("@1").should("have.css", "border", MODIFIED_COLOR).contains("t");
-    cy.get("@2").should("have.css", "border", MODIFIED_COLOR).contains("s");
-    cy.get("@3").should("have.css", "border", MODIFIED_COLOR).contains("e");
-    cy.get("@4").should("have.css", "border", MODIFIED_COLOR).contains("t");
+    cy.get("@1").should("have.css", "border", MODIFIED_COLOR).contains("r");
+    cy.get("@2").should("have.css", "border", MODIFIED_COLOR).contains("e");
+    cy.get("@3").should("have.css", "border", MODIFIED_COLOR).contains("w");
+    cy.get("@4").should("have.css", "border", MODIFIED_COLOR).contains("q");
   });
 });
