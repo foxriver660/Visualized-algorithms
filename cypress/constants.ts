@@ -1,4 +1,3 @@
-export const CY_BASE_URL = "http://localhost:3000";
 // COLOR
 export const DEFAULT_COLOR = "4px solid rgb(0, 50, 255)";
 export const CHANGING_COLOR = "4px solid rgb(210, 82, 225)";

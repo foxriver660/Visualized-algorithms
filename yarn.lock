@@ -3205,6 +3205,11 @@
   "resolved" "https://registry.npmjs.org/caseless/-/caseless-0.12.0.tgz"
   "version" "0.12.0"
 
+"chai-lint@^0.1.1":
+  "integrity" "sha512-lpyWayupJswB5AUNzPGDz8tz/1fX4RZ7w4Z/B8TB9OOk0bk6BXNJQi9VMKjNNwbVU7+l/3xJjJlIIXD5OPrpwQ=="
+  "resolved" "https://registry.npmjs.org/chai-lint/-/chai-lint-0.1.1.tgz"
+  "version" "0.1.1"
+
 "chalk@^2.0.0":
   "integrity" "sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ=="
   "resolved" "https://registry.npmjs.org/chalk/-/chalk-2.4.2.tgz"

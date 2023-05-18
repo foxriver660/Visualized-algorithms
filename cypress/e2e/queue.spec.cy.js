@@ -1,6 +1,6 @@
 import {
   CHANGING_COLOR,
-  CY_BASE_URL,
+  
   CY_CIRCLE_CIRCLE,
   CY_CIRCLE_HEAD,
   CY_CIRCLE_LETTER,
@@ -11,9 +11,9 @@ import {
   DEFAULT_COLOR,
 } from "../constants";
 
-describe("корректная работа кнопки на странице /recursion", () => {
+describe("корректная работа кнопки на странице /queue", () => {
   beforeEach(() => {
-    cy.visit(`${CY_BASE_URL}/queue`);
+    cy.visit(`/queue`);
   });
 
   it("должна начинаться с заблокированной кнопки", () => {
@@ -36,7 +36,7 @@ describe("корректная работа кнопки на странице /
 describe("визуализация алгоритма", () => {
   const test_arr = ["test", "this", "queu"];
   beforeEach(() => {
-    cy.visit(`${CY_BASE_URL}/queue`);
+    cy.visit(`/queue`);
   });
 
   it("правильность добавления и удаления элементов в очередь", () => {
