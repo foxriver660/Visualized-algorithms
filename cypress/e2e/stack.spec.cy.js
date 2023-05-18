@@ -69,8 +69,7 @@ describe("визуализация алгоритма", () => {
       cy.get(CY_SUBMIT_BTN).click();
       cy.tick(500);
     }
-    cy.get(CY_RESET_BTN).should("not.be.disabled");
-    cy.get(CY_RESET_BTN).click();
+    cy.get(CY_RESET_BTN).should("not.be.disabled").click();;
     cy.get(CY_CIRCLE_CIRCLE).should('not.exist'); 
   });
 });
