@@ -9,7 +9,6 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import style from "./sorting-page.module.css";
 import { bubbleSort, selectionSort } from "./utils";
 
-// !ПОДУМАТЬ НАД ТИПИЗАЦИЕЙ arr
 export const SortingPage: React.FC = () => {
   const [renderArr, setRenderArr] = useState<TElementNumber[]>([]);
   const [radio, setRadio] = useState("selection");
@@ -21,16 +20,16 @@ export const SortingPage: React.FC = () => {
 
   const handleClickSortIncrease = () => {
     if (radio === "selection") {
-      selectionSort(renderArr, setRenderArr, setLoaderIncrease, false);
+      selectionSort(renderArr, setRenderArr, setLoaderIncrease);
     } else {
-      bubbleSort(renderArr, setRenderArr, setLoaderIncrease, false);
+      bubbleSort(renderArr, setRenderArr, setLoaderIncrease);
     }
   };
   const handleClickSortDecrease = () => {
     if (radio === "selection") {
-      selectionSort(renderArr, setRenderArr, setLoaderDecrease);
+      selectionSort(renderArr, setRenderArr, setLoaderDecrease, true);
     } else {
-      bubbleSort(renderArr, setRenderArr, setLoaderDecrease);
+      bubbleSort(renderArr, setRenderArr, setLoaderDecrease, true);
     }
   };
 

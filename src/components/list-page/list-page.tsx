@@ -155,7 +155,7 @@ export const ListPage: React.FC = () => {
         linkedList.findByIndex(i).color = ElementStates.Changing;
       }
       setRenderArr(linkedList.toArray());
-      await timeOut(SHORT_DELAY_IN_MS);
+      await timeOut(SHORT_DELAY_IN_MS); 
     }
     setDeleteNodeValue(linkedList.findByIndex(Number(inputValue.index)).value);
     setDeleteNode(true);
@@ -174,7 +174,7 @@ export const ListPage: React.FC = () => {
     setInputValue($EMPTY_INPUT);
     setLoader(false);
   };
-  
+
   return (
     <SolutionLayout title="Связный список">
       <div className={style.wrapper}>
@@ -188,6 +188,7 @@ export const ListPage: React.FC = () => {
         />
 
         <Button
+          type="submit"
           onClick={handleClickPrepend}
           isLoader={loader && btnName === ButtonName.AddHead}
           text="Добавить в head"
@@ -196,6 +197,7 @@ export const ListPage: React.FC = () => {
           extraClass={style.btn}
         />
         <Button
+          type="submit"
           onClick={handleClickAppend}
           isLoader={loader && btnName === ButtonName.AddTail}
           text="Добавить в tail"
@@ -204,6 +206,7 @@ export const ListPage: React.FC = () => {
           extraClass={style.btn}
         />
         <Button
+        data-cy='remove'
           onClick={handleClickDeleteHead}
           isLoader={loader && btnName === ButtonName.DeleteHead}
           text="Удалить из head"
@@ -212,6 +215,7 @@ export const ListPage: React.FC = () => {
           extraClass={style.btn}
         />
         <Button
+         data-cy='remove'
           onClick={handleClickDeleteTail}
           isLoader={loader && btnName === ButtonName.DeleteTail}
           text="Удалить из tail"
@@ -226,9 +230,11 @@ export const ListPage: React.FC = () => {
           type="number"
           value={`${inputValue?.index}`}
           onChange={handleChange}
+          placeholder='Введите индекс'
         />
 
         <Button
+          type="submit"
           onClick={handleClickInsertByIndex}
           isLoader={loader && btnName === ButtonName.AddByIndex}
           text="Добавить по индексу"
@@ -242,11 +248,13 @@ export const ListPage: React.FC = () => {
           extraClass={style.btnIndex}
         />
         <Button
+         data-cy='remove'
           onClick={handleClickDeleteByIndex}
           isLoader={loader && btnName === ButtonName.DeleteByIndex}
           text="Удалить по индексу"
           disabled={
-            !inputValue.index || linkedList.isEmpty() ||
+            !inputValue.index ||
+            linkedList.isEmpty() ||
             loader ||
             Number(inputValue.index) > linkedList.getLength() - 1
           }
@@ -281,7 +289,15 @@ export const ListPage: React.FC = () => {
                 extraClass={style.deleteNodeCircle}
               />
             )}
-            {item.next && <ArrowIcon fill={item.value.color === ElementStates.Changing ? '#D252E1' : undefined}/>}
+            {item.next && (
+              <ArrowIcon
+                fill={
+                  item.value.color === ElementStates.Changing
+                    ? "#D252E1"
+                    : undefined
+                }
+              />
+            )}
           </li>
         ))}
       </ul>

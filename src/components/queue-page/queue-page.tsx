@@ -63,6 +63,7 @@ export const QueuePage: React.FC = () => {
           onClick={handleClickEnqueue}
           isLoader={loaderEnqueue}
           text="Добавить"
+          type="submit"
           disabled={loaderDequeue || !inputValue || queue.isFullQueue()}
           linkedList="small"
           extraClass={`mr-6 ${style.addBtn}`}
@@ -71,6 +72,7 @@ export const QueuePage: React.FC = () => {
           onClick={handleClickDequeue}
           isLoader={loaderDequeue}
           text="Удалить"
+          data-cy="remove"
           disabled={loaderEnqueue || !!queue.isEmpty()}
           linkedList="small"
           extraClass={`mr-40 ${style.deleteBtn}`}
@@ -78,6 +80,7 @@ export const QueuePage: React.FC = () => {
         <Button
           onClick={handleClickClear}
           text="Очистить"
+          type="reset"
           disabled={loaderDequeue || loaderEnqueue || !!queue.isEmpty()}
           linkedList="small"
           extraClass={style.clearBtn}
