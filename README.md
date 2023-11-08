@@ -8,6 +8,7 @@
 4. Visualization of the stack (constructed with classes). 
 5. Visualization of the queue (constructed with classes). 
 6.  Linked List Visualization (constructed with classes).
+   
 When executing algorithms and data structures, a delay of (500ms, 1000ms) was used for visual clarity.
 
 
