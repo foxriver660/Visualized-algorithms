@@ -12,7 +12,7 @@ import "./app.css";
 function App() {
   return (
     <div className="app">
-      <BrowserRouter>
+      <BrowserRouter basename="/visualized-algorithms/">
         <Switch>
           <Route path="/" exact>
             <MainPage />
