@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/algorithms-project/static/css/main.f57863d1.css",
-    "main.js": "/algorithms-project/static/js/main.a1609559.js",
-    "static/js/787.5c053295.chunk.js": "/algorithms-project/static/js/787.5c053295.chunk.js",
-    "static/media/bg.jpg": "/algorithms-project/static/media/bg.971318c52485d1963a30.jpg",
-    "static/media/arr-hover.svg": "/algorithms-project/static/media/arr-hover.a52854e0c00e33cd4d38.svg",
-    "static/media/arr.svg": "/algorithms-project/static/media/arr.a1b9db493901c7af7652.svg",
-    "static/media/fibonacci-hover.svg": "/algorithms-project/static/media/fibonacci-hover.0c33a178af84d4f53cef.svg",
-    "static/media/fibonacci.svg": "/algorithms-project/static/media/fibonacci.7b6125fb7e8909f16ee0.svg",
-    "static/media/list-hover.svg": "/algorithms-project/static/media/list-hover.840c1f5ef69bb5541f5d.svg",
-    "static/media/list.svg": "/algorithms-project/static/media/list.d4fa2d9f0b3934eb26bd.svg",
-    "static/media/queue-hover.svg": "/algorithms-project/static/media/queue-hover.d1256b924ff9d8b9b243.svg",
-    "static/media/queue.svg": "/algorithms-project/static/media/queue.cbfa79052a8dc0c47071.svg",
-    "static/media/stack-hover.svg": "/algorithms-project/static/media/stack-hover.00b180b24bba43588954.svg",
-    "static/media/stack.svg": "/algorithms-project/static/media/stack.b55a8e80cb39e847aab9.svg",
-    "static/media/string-hover.svg": "/algorithms-project/static/media/string-hover.5f4edc84a0ed873770ca.svg",
-    "static/media/string.svg": "/algorithms-project/static/media/string.20f90662771c227e1bca.svg",
-    "index.html": "/algorithms-project/index.html",
-    "static/media/loader.svg": "/algorithms-project/static/media/loader.b935a8aeb021da7b2a90191a58ea95f4.svg",
-    "main.f57863d1.css.map": "/algorithms-project/static/css/main.f57863d1.css.map",
-    "main.a1609559.js.map": "/algorithms-project/static/js/main.a1609559.js.map",
-    "787.5c053295.chunk.js.map": "/algorithms-project/static/js/787.5c053295.chunk.js.map"
+    "main.css": "/visualized-algorithms/static/css/main.908c2603.css",
+    "main.js": "/visualized-algorithms/static/js/main.1d831e7d.js",
+    "static/js/787.5c053295.chunk.js": "/visualized-algorithms/static/js/787.5c053295.chunk.js",
+    "static/media/bg.jpg": "/visualized-algorithms/static/media/bg.971318c52485d1963a30.jpg",
+    "static/media/arr-hover.svg": "/visualized-algorithms/static/media/arr-hover.a52854e0c00e33cd4d38.svg",
+    "static/media/arr.svg": "/visualized-algorithms/static/media/arr.a1b9db493901c7af7652.svg",
+    "static/media/fibonacci-hover.svg": "/visualized-algorithms/static/media/fibonacci-hover.0c33a178af84d4f53cef.svg",
+    "static/media/fibonacci.svg": "/visualized-algorithms/static/media/fibonacci.7b6125fb7e8909f16ee0.svg",
+    "static/media/list-hover.svg": "/visualized-algorithms/static/media/list-hover.840c1f5ef69bb5541f5d.svg",
+    "static/media/list.svg": "/visualized-algorithms/static/media/list.d4fa2d9f0b3934eb26bd.svg",
+    "static/media/queue-hover.svg": "/visualized-algorithms/static/media/queue-hover.d1256b924ff9d8b9b243.svg",
+    "static/media/queue.svg": "/visualized-algorithms/static/media/queue.cbfa79052a8dc0c47071.svg",
+    "static/media/stack-hover.svg": "/visualized-algorithms/static/media/stack-hover.00b180b24bba43588954.svg",
+    "static/media/stack.svg": "/visualized-algorithms/static/media/stack.b55a8e80cb39e847aab9.svg",
+    "static/media/string-hover.svg": "/visualized-algorithms/static/media/string-hover.5f4edc84a0ed873770ca.svg",
+    "static/media/string.svg": "/visualized-algorithms/static/media/string.20f90662771c227e1bca.svg",
+    "index.html": "/visualized-algorithms/index.html",
+    "static/media/loader.svg": "/visualized-algorithms/static/media/loader.b935a8aeb021da7b2a90191a58ea95f4.svg",
+    "main.908c2603.css.map": "/visualized-algorithms/static/css/main.908c2603.css.map",
+    "main.1d831e7d.js.map": "/visualized-algorithms/static/js/main.1d831e7d.js.map",
+    "787.5c053295.chunk.js.map": "/visualized-algorithms/static/js/787.5c053295.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f57863d1.css",
-    "static/js/main.a1609559.js"
+    "static/css/main.908c2603.css",
+    "static/js/main.1d831e7d.js"
   ]
 }
