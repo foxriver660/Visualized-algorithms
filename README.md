@@ -1,4 +1,4 @@
-# Welcome to ****[Algososh Yandex](https://foxriver660.github.io/algososhYandex/)****!
+# Welcome to ****[Visualized algorithms](https://foxriver660.github.io/algososhYandex/)****!
 
   In the course of the design work, a visual representation of the work of 6 algorithms was implemented:
     
